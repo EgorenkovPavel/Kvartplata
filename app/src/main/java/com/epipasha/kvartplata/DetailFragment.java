@@ -1,9 +1,11 @@
 package com.epipasha.kvartplata;
 
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -81,6 +83,54 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         if(billId == 0){
             billId = (int) KvartplataDbManager.createBill(getActivity());
         };
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        String displayHotWaterKey = getString(R.string.pref_enable_hot_water_key);
+        String displayColdWaterKey = getString(R.string.pref_enable_cold_water_key);
+        String displayCanalizationKey = getString(R.string.pref_enable_canalization_key);
+        String displayElectrisityKey = getString(R.string.pref_enable_electricity_key);
+
+        boolean displayHotWater = prefs.getBoolean(displayHotWaterKey,
+                Boolean.parseBoolean(getString(R.string.pref_enable_hot_water_default)));
+
+        boolean displayColdWater = prefs.getBoolean(displayColdWaterKey,
+                Boolean.parseBoolean(getString(R.string.pref_enable_cold_water_default)));
+
+        boolean displayCanalization = prefs.getBoolean(displayCanalizationKey,
+                Boolean.parseBoolean(getString(R.string.pref_enable_canalization_default)));
+
+        boolean displayElectrisity = prefs.getBoolean(displayElectrisityKey,
+                Boolean.parseBoolean(getString(R.string.pref_enable_electricity_default)));
+
+        ViewGroup hotWaterGroup = (ViewGroup) v.findViewById(R.id.hot_water_group);
+        ViewGroup coldWaterGroup = (ViewGroup) v.findViewById(R.id.cold_water_group);
+        ViewGroup canalizationGroup = (ViewGroup) v.findViewById(R.id.canalization_group);
+        ViewGroup electricityGroup = (ViewGroup) v.findViewById(R.id.electricity_group);
+
+        if(displayHotWater){
+            hotWaterGroup.setVisibility(View.VISIBLE);
+        }else{
+            hotWaterGroup.setVisibility(View.GONE);
+        }
+
+        if(displayColdWater){
+            coldWaterGroup.setVisibility(View.VISIBLE);
+        }else{
+            coldWaterGroup.setVisibility(View.GONE);
+        }
+
+        if(displayCanalization){
+            canalizationGroup.setVisibility(View.VISIBLE);
+        }else{
+            canalizationGroup.setVisibility(View.GONE);
+        }
+
+        if(displayElectrisity){
+            electricityGroup.setVisibility(View.VISIBLE);
+        }else{
+            electricityGroup.setVisibility(View.GONE);
+        }
 
         hotWaterTax = (EditText) v.findViewById(R.id.hot_water_tax);
         hotWaterValue = (EditText) v.findViewById(R.id.hot_water_value);
