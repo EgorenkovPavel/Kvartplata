@@ -99,4 +99,5 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillLi
             billTotal.setText(KvartplataDbManager.getValue(cursor, BillEntry.COLUMN_SUM));
         }
     }
+
 }

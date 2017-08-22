@@ -45,12 +45,34 @@ public class KvartplataDbManager {
         KvartplataDbHelper dbHelper = new KvartplataDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        Cursor c = db.query(BillEntry.TABLE_NAME,
+                new String[]{"COUNT(*)", "MAX("+BillEntry.COLUMN_MONTH + ")", BillEntry.COLUMN_YEAR},
+                BillEntry.COLUMN_YEAR + " = " + "(SELECT max(" + BillEntry.COLUMN_YEAR + ") FROM " + BillEntry.TABLE_NAME + ")",
+                null,null, null, null);
+
+
+        Calendar d = Calendar.getInstance();;
+
+        int month = d.get(Calendar.MONTH) + 1;
+        int year = d.get(Calendar.YEAR);
+
+        if(c.moveToFirst() && c.getInt(0) > 0){
+            month = c.getInt(1);
+            year = c.getInt(2);
+
+            if (month == 12){
+                month = 1;
+                year += 1;
+            }else{
+                month += 1;
+            }
+        }
 
         ContentValues values = new ContentValues();
-        values.put(KvartplataContract.BillEntry.COLUMN_MONTH, 1);
-        values.put(KvartplataContract.BillEntry.COLUMN_YEAR, 2017);
+        values.put(KvartplataContract.BillEntry.COLUMN_MONTH, month);
+        values.put(KvartplataContract.BillEntry.COLUMN_YEAR, year);
 
-        int billId = (int)db.insert(KvartplataContract.BillEntry.TABLE_NAME, null, values);
+        int billId = (int)db.insert(BillEntry.TABLE_NAME, null, values);
 
         ContentValues hotWaterValues = new ContentValues();
         hotWaterValues.put(HotWaterEntry.COLUMN_BILL, billId);
@@ -99,4 +121,6 @@ public class KvartplataDbManager {
     public static String getValue(Cursor cursor, String column){
         return String.valueOf(cursor.getLong(cursor.getColumnIndex(column)));
     }
+
+
 }
