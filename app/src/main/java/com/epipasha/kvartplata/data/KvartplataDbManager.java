@@ -45,10 +45,15 @@ public class KvartplataDbManager {
         KvartplataDbHelper dbHelper = new KvartplataDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+//        Cursor c = db.query(BillEntry.TABLE_NAME,
+//                new String[]{"COUNT(*)", "MAX("+BillEntry.COLUMN_MONTH + ")", BillEntry.COLUMN_YEAR},
+//                BillEntry.COLUMN_YEAR + " = " + "(SELECT max(" + BillEntry.COLUMN_YEAR + ") FROM " + BillEntry.TABLE_NAME + ")",
+//                null,null, null, null);
+
         Cursor c = db.query(BillEntry.TABLE_NAME,
-                new String[]{"COUNT(*)", "MAX("+BillEntry.COLUMN_MONTH + ")", BillEntry.COLUMN_YEAR},
-                BillEntry.COLUMN_YEAR + " = " + "(SELECT max(" + BillEntry.COLUMN_YEAR + ") FROM " + BillEntry.TABLE_NAME + ")",
-                null,null, null, null);
+                new String[]{"COUNT(*)", BillEntry.COLUMN_MONTH, BillEntry.COLUMN_YEAR},
+                null,null,null, null, BillEntry.COLUMN_YEAR + " DESC, " + BillEntry.COLUMN_MONTH + " DESC", "1");
+
 
 
         Calendar d = Calendar.getInstance();;
