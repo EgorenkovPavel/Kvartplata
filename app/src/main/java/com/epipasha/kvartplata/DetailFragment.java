@@ -29,7 +29,8 @@ import com.epipasha.kvartplata.data.KvartplataDbManager;
 
 public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private final static int LOADER_ID = 0;
+    private final static int DETAIL_LOADER_ID = 0;
+    private final static int PRESIOUS_LOADER_ID = 1;
 
     public final static String DB_ID = "db_id";
 
@@ -157,7 +158,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getLoaderManager().initLoader(LOADER_ID, null, this).forceLoad();
+        getLoaderManager().initLoader(DETAIL_LOADER_ID, null, this).forceLoad();
     }
 
     @Override
@@ -186,8 +187,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-        month = data.getInt(data.getColumnIndex(BillEntry.COLUMN_MONTH));
-        year = data.getInt(data.getColumnIndex(BillEntry.COLUMN_YEAR));
+        month = KvartplataDbManager.getMonth(billId);
+        year = KvartplataDbManager.getYear(billId);
 
         setValue(hotWaterTax, data, HotWaterEntry.COLUMN_TAX);
         setValue(hotWaterValue, data, HotWaterEntry.COLUMN_VALUE);
@@ -263,12 +264,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     private void updateBill(SQLiteDatabase db){
         ContentValues values = new ContentValues();
-        values.put(BillEntry._ID, billId);
-        values.put(BillEntry.COLUMN_MONTH, month);
-        values.put(BillEntry.COLUMN_YEAR, year);
+        values.put(BillEntry.COLUMN_KEY, billId);
         values.put(BillEntry.COLUMN_SUM, getValue(totalSum));
 
-        String where = BillEntry.TABLE_NAME + "." + BillEntry._ID + " = " + billId;
+        String where = BillEntry.TABLE_NAME + "." + BillEntry.COLUMN_KEY + " = " + billId;
 
         long i = db.update(BillEntry.TABLE_NAME, values, where, null);
     }

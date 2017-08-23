@@ -25,19 +25,19 @@ public class KvartplataDbManager {
         totalSumQueryBuilder.setTables(
                 BillEntry.TABLE_NAME +
                         " LEFT JOIN " + HotWaterEntry.TABLE_NAME +
-                        " ON " + BillEntry.TABLE_NAME + "." + BillEntry._ID +
+                        " ON " + BillEntry.TABLE_NAME + "." + BillEntry.COLUMN_KEY +
                         " = " + HotWaterEntry.TABLE_NAME + "." + HotWaterEntry.COLUMN_BILL +
 
                         " LEFT JOIN " + ColdWaterEntry.TABLE_NAME +
-                        " ON " + BillEntry.TABLE_NAME + "." + BillEntry._ID +
+                        " ON " + BillEntry.TABLE_NAME + "." + BillEntry.COLUMN_KEY +
                         " = " + ColdWaterEntry.TABLE_NAME + "." + ColdWaterEntry.COLUMN_BILL +
 
                         " LEFT JOIN " + CanalizationEntry.TABLE_NAME +
-                        " ON " + BillEntry.TABLE_NAME + "." + BillEntry._ID +
+                        " ON " + BillEntry.TABLE_NAME + "." + BillEntry.COLUMN_KEY +
                         " = " + CanalizationEntry.TABLE_NAME + "." + CanalizationEntry.COLUMN_BILL +
 
                         " LEFT JOIN " + ElectricityEntry.TABLE_NAME +
-                        " ON " + BillEntry.TABLE_NAME + "." + BillEntry._ID +
+                        " ON " + BillEntry.TABLE_NAME + "." + BillEntry.COLUMN_KEY +
                         " = " + ElectricityEntry.TABLE_NAME + "." + ElectricityEntry.COLUMN_BILL);
     }
 
@@ -51,10 +51,8 @@ public class KvartplataDbManager {
 //                null,null, null, null);
 
         Cursor c = db.query(BillEntry.TABLE_NAME,
-                new String[]{"COUNT(*)", BillEntry.COLUMN_MONTH, BillEntry.COLUMN_YEAR},
-                null,null,null, null, BillEntry.COLUMN_YEAR + " DESC, " + BillEntry.COLUMN_MONTH + " DESC", "1");
-
-
+                new String[]{"COUNT(*)", BillEntry.COLUMN_KEY},
+                null,null,null, null, BillEntry.COLUMN_KEY + " DESC", "1");
 
         Calendar d = Calendar.getInstance();;
 
@@ -62,8 +60,10 @@ public class KvartplataDbManager {
         int year = d.get(Calendar.YEAR);
 
         if(c.moveToFirst() && c.getInt(0) > 0){
-            month = c.getInt(1);
-            year = c.getInt(2);
+
+            int key = c.getInt(1);
+            month = KvartplataDbManager.getMonth(key);
+            year = KvartplataDbManager.getYear(key);
 
             if (month == 12){
                 month = 1;
@@ -74,8 +74,7 @@ public class KvartplataDbManager {
         }
 
         ContentValues values = new ContentValues();
-        values.put(KvartplataContract.BillEntry.COLUMN_MONTH, month);
-        values.put(KvartplataContract.BillEntry.COLUMN_YEAR, year);
+        values.put(BillEntry.COLUMN_KEY, KvartplataDbManager.makeKey(month, year));
 
         int billId = (int)db.insert(BillEntry.TABLE_NAME, null, values);
 
@@ -102,7 +101,7 @@ public class KvartplataDbManager {
         KvartplataDbHelper dbHelper = new KvartplataDbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor c = totalSumQueryBuilder.query(db,null,
-                BillEntry.TABLE_NAME + "." + BillEntry._ID + " = " + billId,null,null,null,null);
+                BillEntry.TABLE_NAME + "." + BillEntry.COLUMN_KEY + " = " + billId,null,null,null,null);
         c.moveToFirst();
         return c;
     }
@@ -125,6 +124,19 @@ public class KvartplataDbManager {
 
     public static String getValue(Cursor cursor, String column){
         return String.valueOf(cursor.getLong(cursor.getColumnIndex(column)));
+    }
+
+
+    public static int makeKey(int month, int year){
+        return year*100 + month;
+    }
+
+    public static int getMonth(int key){
+        return key % 100;
+    }
+
+    public static int getYear(int key){
+        return key / 100;
     }
 
 

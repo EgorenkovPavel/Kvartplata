@@ -23,9 +23,7 @@ public class KvartplataDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         final String SQL_CREATE_BILL_TABLE = "CREATE TABLE " + BillEntry.TABLE_NAME + " (" +
-                BillEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                BillEntry.COLUMN_MONTH + " INTEGER NOT NULL, " +
-                BillEntry.COLUMN_YEAR + " INTEGER NOT NULL, " +
+                BillEntry.COLUMN_KEY + " INTEGER PRIMARY KEY," +
                 BillEntry.COLUMN_SUM + " REAL  DEFAULT (0))";
 
         sqLiteDatabase.execSQL(SQL_CREATE_BILL_TABLE);
@@ -36,7 +34,7 @@ public class KvartplataDbHelper extends SQLiteOpenHelper {
                 HotWaterEntry.COLUMN_VALUE + " REAL  DEFAULT (0), " +
                 HotWaterEntry.COLUMN_SUM + " REAL  DEFAULT (0), " +
                 " FOREIGN KEY (" + HotWaterEntry.COLUMN_BILL + ") REFERENCES " +
-                BillEntry.TABLE_NAME + " (" + BillEntry._ID + "))";
+                BillEntry.TABLE_NAME + " (" + BillEntry.COLUMN_KEY + "))";
 
         sqLiteDatabase.execSQL(SQL_CREATE_HOTWATER_TABLE);
 
@@ -46,7 +44,7 @@ public class KvartplataDbHelper extends SQLiteOpenHelper {
                 ColdWaterEntry.COLUMN_VALUE + " REAL  DEFAULT (0), " +
                 ColdWaterEntry.COLUMN_SUM + " REAL  DEFAULT (0), " +
                 " FOREIGN KEY (" + ColdWaterEntry.COLUMN_BILL + ") REFERENCES " +
-                BillEntry.TABLE_NAME + " (" + BillEntry._ID + "))";
+                BillEntry.TABLE_NAME + " (" + BillEntry.COLUMN_KEY + "))";
 
         sqLiteDatabase.execSQL(SQL_CREATE_COLDWATER_TABLE);
 
@@ -56,7 +54,7 @@ public class KvartplataDbHelper extends SQLiteOpenHelper {
                 ElectricityEntry.COLUMN_VALUE + " REAL  DEFAULT (0), " +
                 ElectricityEntry.COLUMN_SUM + " REAL  DEFAULT (0), " +
                 " FOREIGN KEY (" + ElectricityEntry.COLUMN_BILL + ") REFERENCES " +
-                BillEntry.TABLE_NAME + " (" + BillEntry._ID + "))";
+                BillEntry.TABLE_NAME + " (" + BillEntry.COLUMN_KEY + "))";
 
         sqLiteDatabase.execSQL(SQL_CREATE_ELECTRICITY_TABLE);
 
@@ -65,7 +63,7 @@ public class KvartplataDbHelper extends SQLiteOpenHelper {
                 CanalizationEntry.COLUMN_TAX + " REAL  DEFAULT (0), " +
                 CanalizationEntry.COLUMN_SUM + " REAL  DEFAULT (0), " +
                 " FOREIGN KEY (" + CanalizationEntry.COLUMN_BILL + ") REFERENCES " +
-                BillEntry.TABLE_NAME + " (" + BillEntry._ID + "))";
+                BillEntry.TABLE_NAME + " (" + BillEntry.COLUMN_KEY + "))";
 
         sqLiteDatabase.execSQL(SQL_CREATE_CANALIZATION_TABLE);
 

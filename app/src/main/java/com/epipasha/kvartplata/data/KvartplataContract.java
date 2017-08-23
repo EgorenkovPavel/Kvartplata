@@ -7,11 +7,10 @@ public class KvartplataContract {
 
     public static final String COLUMN_BILL_ID = "bill_id";
 
-    public static final class BillEntry implements BaseColumns {
+    public static final class BillEntry{
         public static final String TABLE_NAME = "bill";
 
-        public static final String COLUMN_MONTH = "bill_month";
-        public static final String COLUMN_YEAR = "bill_year";
+        public static final String COLUMN_KEY = "bill_key";
         public static final String COLUMN_SUM = "bill_sum";
     }
 

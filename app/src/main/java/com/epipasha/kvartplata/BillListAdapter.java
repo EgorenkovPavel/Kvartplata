@@ -60,7 +60,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillLi
         TextView billElectricity;
         TextView billTotal;
 
-        int id;
+        int key;
 
         public BillListHolder(View itemView) {
             super(itemView);
@@ -76,7 +76,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillLi
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(context, DetailActivity.class);
-                    i.putExtra(DetailFragment.DB_ID, id);
+                    i.putExtra(DetailFragment.DB_ID, key);
                     context.startActivity(i);
                 }
             });
@@ -85,9 +85,9 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillLi
         public void setData(int position){
             cursor.moveToPosition(position);
 
-            id = cursor.getInt(cursor.getColumnIndex(BillEntry._ID));
-            int month = cursor.getInt(cursor.getColumnIndex(BillEntry.COLUMN_MONTH));
-            int year = cursor.getInt(cursor.getColumnIndex(BillEntry.COLUMN_YEAR));
+            key = cursor.getInt(cursor.getColumnIndex(BillEntry.COLUMN_KEY));
+            int month = KvartplataDbManager.getMonth(key);
+            int year = KvartplataDbManager.getYear(key);
 
             billDate.setText(KvartplataDbManager.getBillDate(month, year));
 
