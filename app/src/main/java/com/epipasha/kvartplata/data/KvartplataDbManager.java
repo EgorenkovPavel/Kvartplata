@@ -101,8 +101,7 @@ public class KvartplataDbManager {
         KvartplataDbHelper dbHelper = new KvartplataDbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor c = totalSumQueryBuilder.query(db,null,
-                BillEntry.TABLE_NAME + "." + BillEntry.COLUMN_KEY + " = " + billId,null,null,null,null);
-        c.moveToFirst();
+                BillEntry.TABLE_NAME + "." + BillEntry.COLUMN_KEY + " <= " + billId,null,null,null,BillEntry.COLUMN_KEY + " DESC","2");
         return c;
     }
 

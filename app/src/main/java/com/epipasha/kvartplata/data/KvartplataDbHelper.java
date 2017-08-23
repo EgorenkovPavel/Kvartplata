@@ -61,6 +61,7 @@ public class KvartplataDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_CANALIZATION_TABLE = "CREATE TABLE " + CanalizationEntry.TABLE_NAME + " (" +
                 CanalizationEntry.COLUMN_BILL + " INTEGER NOT NULL, " +
                 CanalizationEntry.COLUMN_TAX + " REAL  DEFAULT (0), " +
+                CanalizationEntry.COLUMN_VALUE + " REAL  DEFAULT (0), " +
                 CanalizationEntry.COLUMN_SUM + " REAL  DEFAULT (0), " +
                 " FOREIGN KEY (" + CanalizationEntry.COLUMN_BILL + ") REFERENCES " +
                 BillEntry.TABLE_NAME + " (" + BillEntry.COLUMN_KEY + "))";

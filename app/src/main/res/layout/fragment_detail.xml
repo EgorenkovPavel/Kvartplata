@@ -45,11 +45,16 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/tax" />
+                                android:text="@string/value" />
+
+                            <TextView
+                                android:id="@+id/hot_water_prev_value"
+                                style="@style/prevValueTextView" />
 
                             <EditText
-                                android:id="@+id/hot_water_tax"
-                                style="@style/detailEditText" />
+                                android:id="@+id/hot_water_value"
+                                style="@style/detailEditText"/>
+
                         </TableRow>
 
                         <TableRow
@@ -59,11 +64,16 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/value" />
+                                android:text="@string/tax" />
+
+                            <TextView
+                                android:id="@+id/hot_water_prev_tax"
+                                style="@style/prevValueTextView" />
 
                             <EditText
-                                android:id="@+id/hot_water_value"
+                                android:id="@+id/hot_water_tax"
                                 style="@style/detailEditText" />
+
                         </TableRow>
 
                         <TableRow
@@ -76,8 +86,13 @@
                                 android:text="@string/sum" />
 
                             <TextView
+                                android:id="@+id/hot_water_prev_sum"
+                                style="@style/prevValueTextView" />
+
+                            <TextView
                                 android:id="@+id/hot_water_sum"
                                 style="@style/detailSumView" />
+
                         </TableRow>
 
                     </TableLayout>
@@ -104,26 +119,16 @@
 
                         <TableRow
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/tax" />
-
-                            <EditText
-                                android:id="@+id/cold_water_tax"
-                                style="@style/detailEditText"/>
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="match_parent">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/value" />
+
+                            <TextView
+                                android:id="@+id/cold_water_prev_value"
+                                style="@style/prevValueTextView" />
 
                             <EditText
                                 android:id="@+id/cold_water_value"
@@ -137,7 +142,29 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="@string/tax" />
+
+                            <TextView
+                                android:id="@+id/cold_water_prev_tax"
+                                style="@style/prevValueTextView" />
+
+                            <EditText
+                                android:id="@+id/cold_water_tax"
+                                style="@style/detailEditText"/>
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:text="@string/sum" />
+
+                            <TextView
+                                android:id="@+id/cold_water_prev_sum"
+                                style="@style/prevValueTextView" />
 
                             <TextView
                                 android:id="@+id/cold_water_sum"
@@ -167,26 +194,16 @@
 
                         <TableRow
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/tax" />
-
-                            <EditText
-                                android:id="@+id/canalization_tax"
-                                style="@style/detailEditText"/>
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="match_parent">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/value" />
+
+                            <TextView
+                                android:id="@+id/canalization_prev_value"
+                                style="@style/prevValueTextView" />
 
                             <TextView
                                 android:id="@+id/canalization_value"
@@ -200,7 +217,28 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="@string/tax" />
+
+                            <TextView
+                                android:id="@+id/canalization_prev_tax"
+                                style="@style/prevValueTextView" />
+
+                            <EditText
+                                android:id="@+id/canalization_tax"
+                                style="@style/detailEditText"/>
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:text="@string/sum" />
+                            <TextView
+                                android:id="@+id/canalization_prev_sum"
+                                style="@style/prevValueTextView" />
 
                             <TextView
                                 android:id="@+id/canalization_sum"
@@ -231,12 +269,33 @@
 
                         <TableRow
                             android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/value" />
+
+                            <TextView
+                                android:id="@+id/electricity_prev_value"
+                                style="@style/prevValueTextView" />
+
+                            <EditText
+                                android:id="@+id/electricity_value"
+                                style="@style/detailEditText" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent" >
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/tax" />
+                            <TextView
+                                android:id="@+id/electricity_prev_tax"
+                                style="@style/prevValueTextView" />
 
                             <EditText
                                 android:id="@+id/electricity_tax"
@@ -250,21 +309,10 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/value" />
-
-                            <EditText
-                                android:id="@+id/electricity_value"
-                                style="@style/detailEditText"/>
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:text="@string/sum" />
+                            <TextView
+                                android:id="@+id/electricity_prev_sum"
+                                style="@style/prevValueTextView" />
 
                             <TextView
                                 android:id="@+id/electricity_sum"

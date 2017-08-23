@@ -30,29 +30,33 @@ import com.epipasha.kvartplata.data.KvartplataDbManager;
 public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private final static int DETAIL_LOADER_ID = 0;
-    private final static int PRESIOUS_LOADER_ID = 1;
 
     public final static String DB_ID = "db_id";
 
     private int billId;
     private int month;
     private int year;
+    private boolean isNew = false;
 
     private EditText hotWaterTax;
     private EditText hotWaterValue;
     private TextView hotWaterSum;
+    private TextView hotWaterPrevTax, hotWaterPrevValue, hotWaterPrevSum;
 
     private EditText coldWaterTax;
     private EditText coldWaterValue;
     private TextView coldWaterSum;
+    private TextView coldWaterPrevTax, coldWaterPrevValue, coldWaterPrevSum;
 
     private EditText canalizationTax;
     private TextView canalizationValue;
     private TextView canalizationSum;
+    private TextView canalizationPrevTax, canalizationPrevValue, canalizationPrevSum;
 
     private EditText electricityTax;
     private EditText electricityValue;
     private TextView electricitySum;
+    private TextView electricityPrevTax, electricityPrevValue, electricityPrevSum;
 
     private TextView totalSum;
     private TextView header;
@@ -83,6 +87,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         billId = getArguments().getInt(DB_ID);
         if(billId == 0){
             billId = (int) KvartplataDbManager.createBill(getActivity());
+            isNew = true;
         };
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -136,18 +141,30 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         hotWaterTax = (EditText) v.findViewById(R.id.hot_water_tax);
         hotWaterValue = (EditText) v.findViewById(R.id.hot_water_value);
         hotWaterSum = (TextView) v.findViewById(R.id.hot_water_sum);
+        hotWaterPrevTax = (TextView) v.findViewById(R.id.hot_water_prev_tax);
+        hotWaterPrevValue = (TextView) v.findViewById(R.id.hot_water_prev_value);
+        hotWaterPrevSum = (TextView) v.findViewById(R.id.hot_water_prev_sum);
 
         coldWaterTax = (EditText) v.findViewById(R.id.cold_water_tax);
         coldWaterValue = (EditText) v.findViewById(R.id.cold_water_value);
         coldWaterSum = (TextView) v.findViewById(R.id.cold_water_sum);
+        coldWaterPrevTax = (TextView)v.findViewById(R.id.cold_water_prev_tax);
+        coldWaterPrevValue = (TextView)v.findViewById(R.id.cold_water_prev_value);
+        coldWaterPrevSum = (TextView)v.findViewById(R.id.cold_water_prev_sum);
 
         canalizationTax = (EditText) v.findViewById(R.id.canalization_tax);
         canalizationValue = (TextView) v.findViewById(R.id.canalization_value);
         canalizationSum = (TextView) v.findViewById(R.id.canalization_sum);
+        canalizationPrevTax = (TextView) v.findViewById(R.id.canalization_prev_tax);
+        canalizationPrevValue = (TextView) v.findViewById(R.id.canalization_prev_value);
+        canalizationPrevSum = (TextView) v.findViewById(R.id.canalization_prev_sum);
 
         electricityTax = (EditText) v.findViewById(R.id.electricity_tax);
         electricityValue = (EditText) v.findViewById(R.id.electricity_value);
         electricitySum = (TextView) v.findViewById(R.id.electricity_sum);
+        electricityPrevTax = (TextView) v.findViewById(R.id.electricity_prev_tax);
+        electricityPrevValue = (TextView) v.findViewById(R.id.electricity_prev_value);
+        electricityPrevSum = (TextView) v.findViewById(R.id.electricity_prev_sum);
 
         totalSum = (TextView)v.findViewById(R.id.totalSum);
         header = (TextView)v.findViewById(R.id.header);
@@ -187,23 +204,52 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-        month = KvartplataDbManager.getMonth(billId);
-        year = KvartplataDbManager.getYear(billId);
+        if(data.moveToFirst()) {
 
-        setValue(hotWaterTax, data, HotWaterEntry.COLUMN_TAX);
-        setValue(hotWaterValue, data, HotWaterEntry.COLUMN_VALUE);
-        setValue(hotWaterSum, data, HotWaterEntry.COLUMN_SUM);
+            month = KvartplataDbManager.getMonth(billId);
+            year = KvartplataDbManager.getYear(billId);
 
-        setValue(coldWaterTax, data, ColdWaterEntry.COLUMN_TAX);
-        setValue(coldWaterValue, data, ColdWaterEntry.COLUMN_VALUE);
-        setValue(coldWaterSum, data, ColdWaterEntry.COLUMN_SUM);
+            setValue(hotWaterTax, data, HotWaterEntry.COLUMN_TAX);
+            setValue(hotWaterValue, data, HotWaterEntry.COLUMN_VALUE);
+            setValue(hotWaterSum, data, HotWaterEntry.COLUMN_SUM);
 
-        setValue(canalizationTax, data, CanalizationEntry.COLUMN_TAX);
-        setValue(canalizationSum, data, CanalizationEntry.COLUMN_SUM);
+            setValue(coldWaterTax, data, ColdWaterEntry.COLUMN_TAX);
+            setValue(coldWaterValue, data, ColdWaterEntry.COLUMN_VALUE);
+            setValue(coldWaterSum, data, ColdWaterEntry.COLUMN_SUM);
 
-        setValue(electricityTax, data, ElectricityEntry.COLUMN_TAX);
-        setValue(electricityValue, data, ElectricityEntry.COLUMN_VALUE);
-        setValue(electricitySum, data, ElectricityEntry.COLUMN_SUM);
+            setValue(canalizationTax, data, CanalizationEntry.COLUMN_TAX);
+            setValue(canalizationSum, data, CanalizationEntry.COLUMN_SUM);
+
+            setValue(electricityTax, data, ElectricityEntry.COLUMN_TAX);
+            setValue(electricityValue, data, ElectricityEntry.COLUMN_VALUE);
+            setValue(electricitySum, data, ElectricityEntry.COLUMN_SUM);
+        }
+
+        if(data.moveToNext()){
+
+            setValue(hotWaterPrevTax, data, HotWaterEntry.COLUMN_TAX);
+            setValue(hotWaterPrevValue, data, HotWaterEntry.COLUMN_VALUE);
+            setValue(hotWaterPrevSum, data, HotWaterEntry.COLUMN_SUM);
+
+            setValue(coldWaterPrevTax, data, ColdWaterEntry.COLUMN_TAX);
+            setValue(coldWaterPrevValue, data, ColdWaterEntry.COLUMN_VALUE);
+            setValue(coldWaterPrevSum, data, ColdWaterEntry.COLUMN_SUM);
+
+            setValue(canalizationPrevTax, data, CanalizationEntry.COLUMN_TAX);
+            setValue(canalizationPrevValue, data, CanalizationEntry.COLUMN_VALUE);
+            setValue(canalizationPrevSum, data, CanalizationEntry.COLUMN_SUM);
+
+            setValue(electricityPrevTax, data, ElectricityEntry.COLUMN_TAX);
+            setValue(electricityPrevValue, data, ElectricityEntry.COLUMN_VALUE);
+            setValue(electricityPrevSum, data, ElectricityEntry.COLUMN_SUM);
+
+            if(isNew) {
+                setValue(hotWaterTax, data, HotWaterEntry.COLUMN_TAX);
+                setValue(coldWaterTax, data, ColdWaterEntry.COLUMN_TAX);
+                setValue(canalizationTax, data, CanalizationEntry.COLUMN_TAX);
+                setValue(electricityTax, data, ElectricityEntry.COLUMN_TAX);
+            }
+        }
 
         setHeader();
         calc();
@@ -242,6 +288,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private void updateCanalization(SQLiteDatabase db){
         ContentValues values = new ContentValues();
         values.put(CanalizationEntry.COLUMN_TAX, getValue(canalizationTax));
+        values.put(CanalizationEntry.COLUMN_VALUE, getValue(canalizationValue));
         values.put(CanalizationEntry.COLUMN_SUM, getValue(canalizationSum));
         values.put(CanalizationEntry.COLUMN_BILL, billId);
 
@@ -283,21 +330,30 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         if(view instanceof EditText){
             view.addTextChangedListener(textWatcher);
         }
-
     }
 
     private long getValue(TextView view){
+        String val = view.getText().toString();
+        if(val.isEmpty()){
+            return 0;
+        }
+
         return Long.parseLong(view.getText().toString());
     }
 
     private void calc(){
 
-        canalizationValue.setText(String.valueOf(getValue(hotWaterValue) + getValue(coldWaterValue)));
+        long hotWaterVal = Math.max(getValue(hotWaterValue) - getValue(hotWaterPrevValue), 0);
+        long coldWaterVal = Math.max(getValue(coldWaterValue) - getValue(coldWaterPrevValue), 0);
 
-        long hotWaterTotal = getValue(hotWaterTax) * getValue(hotWaterValue);
-        long coldWaterTotal = getValue(coldWaterTax) * getValue(coldWaterValue);
+        long electricityVal = Math.max(getValue(electricityValue) - getValue(electricityPrevValue), 0);
+
+        canalizationValue.setText(String.valueOf(hotWaterVal + coldWaterVal));
+
+        long hotWaterTotal = getValue(hotWaterTax) * hotWaterVal;
+        long coldWaterTotal = getValue(coldWaterTax) * coldWaterVal;
         long canalizationTotal = getValue(canalizationTax) * getValue(canalizationValue);
-        long electricityTotal = getValue(electricityTax) * getValue(electricityValue);
+        long electricityTotal = getValue(electricityTax) * electricityVal;
 
         hotWaterSum.setText(String.valueOf(hotWaterTotal));
         coldWaterSum.setText(String.valueOf(coldWaterTotal));
