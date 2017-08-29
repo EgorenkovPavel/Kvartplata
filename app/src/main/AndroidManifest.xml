@@ -31,6 +31,16 @@
         </activity>
 
         <activity
+            android:name=".InitialDataActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName="com.epipasha.kvartplata.MainActivity" >
+            <!-- The meta-data element is needed for versions lower than 4.1 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.epipasha.kvartplata.MainActivity" />
+        </activity>
+
+        <activity
             android:name=".SettingsActivity"
             android:theme="@style/SettingsTheme"
             android:label="@string/title_activity_settings"

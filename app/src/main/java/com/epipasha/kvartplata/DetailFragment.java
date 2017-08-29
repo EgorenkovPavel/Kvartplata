@@ -263,9 +263,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     private void updateHotWater(SQLiteDatabase db){
         ContentValues values = new ContentValues();
-        values.put(HotWaterEntry.COLUMN_TAX, getValue(hotWaterTax));
-        values.put(HotWaterEntry.COLUMN_VALUE, getValue(hotWaterValue));
-        values.put(HotWaterEntry.COLUMN_SUM, getValue(hotWaterSum));
+        values.put(HotWaterEntry.COLUMN_TAX, Utils.getValue(hotWaterTax));
+        values.put(HotWaterEntry.COLUMN_VALUE, Utils.getValue(hotWaterValue));
+        values.put(HotWaterEntry.COLUMN_SUM, Utils.getValue(hotWaterSum));
         values.put(HotWaterEntry.COLUMN_BILL, billId);
 
         String where = HotWaterEntry.TABLE_NAME + "." + HotWaterEntry.COLUMN_BILL + " = " + billId;
@@ -275,9 +275,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     private void updateColdWater(SQLiteDatabase db){
         ContentValues values = new ContentValues();
-        values.put(ColdWaterEntry.COLUMN_TAX, getValue(coldWaterTax));
-        values.put(ColdWaterEntry.COLUMN_VALUE, getValue(coldWaterValue));
-        values.put(ColdWaterEntry.COLUMN_SUM, getValue(coldWaterSum));
+        values.put(ColdWaterEntry.COLUMN_TAX, Utils.getValue(coldWaterTax));
+        values.put(ColdWaterEntry.COLUMN_VALUE, Utils.getValue(coldWaterValue));
+        values.put(ColdWaterEntry.COLUMN_SUM, Utils.getValue(coldWaterSum));
         values.put(ColdWaterEntry.COLUMN_BILL, billId);
 
         String where = ColdWaterEntry.TABLE_NAME + "." + ColdWaterEntry.COLUMN_BILL + " = " + billId;
@@ -287,9 +287,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     private void updateCanalization(SQLiteDatabase db){
         ContentValues values = new ContentValues();
-        values.put(CanalizationEntry.COLUMN_TAX, getValue(canalizationTax));
-        values.put(CanalizationEntry.COLUMN_VALUE, getValue(canalizationValue));
-        values.put(CanalizationEntry.COLUMN_SUM, getValue(canalizationSum));
+        values.put(CanalizationEntry.COLUMN_TAX, Utils.getValue(canalizationTax));
+        values.put(CanalizationEntry.COLUMN_VALUE, Utils.getValue(canalizationValue));
+        values.put(CanalizationEntry.COLUMN_SUM, Utils.getValue(canalizationSum));
         values.put(CanalizationEntry.COLUMN_BILL, billId);
 
         String where = CanalizationEntry.TABLE_NAME + "." + CanalizationEntry.COLUMN_BILL + " = " + billId;
@@ -299,9 +299,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     private void updateElectricity(SQLiteDatabase db){
         ContentValues values = new ContentValues();
-        values.put(ElectricityEntry.COLUMN_TAX, getValue(electricityTax));
-        values.put(ElectricityEntry.COLUMN_VALUE, getValue(electricityValue));
-        values.put(ElectricityEntry.COLUMN_SUM, getValue(electricitySum));
+        values.put(ElectricityEntry.COLUMN_TAX, Utils.getValue(electricityTax));
+        values.put(ElectricityEntry.COLUMN_VALUE, Utils.getValue(electricityValue));
+        values.put(ElectricityEntry.COLUMN_SUM, Utils.getValue(electricitySum));
         values.put(ElectricityEntry.COLUMN_BILL, billId);
 
         String where = ElectricityEntry.TABLE_NAME + "." + ElectricityEntry.COLUMN_BILL + " = " + billId;
@@ -312,7 +312,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private void updateBill(SQLiteDatabase db){
         ContentValues values = new ContentValues();
         values.put(BillEntry.COLUMN_KEY, billId);
-        values.put(BillEntry.COLUMN_SUM, getValue(totalSum));
+        values.put(BillEntry.COLUMN_SUM, Utils.getValue(totalSum));
 
         String where = BillEntry.TABLE_NAME + "." + BillEntry.COLUMN_KEY + " = " + billId;
 
@@ -332,28 +332,19 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         }
     }
 
-    private long getValue(TextView view){
-        String val = view.getText().toString();
-        if(val.isEmpty()){
-            return 0;
-        }
-
-        return Long.parseLong(view.getText().toString());
-    }
-
     private void calc(){
 
-        long hotWaterVal = Math.max(getValue(hotWaterValue) - getValue(hotWaterPrevValue), 0);
-        long coldWaterVal = Math.max(getValue(coldWaterValue) - getValue(coldWaterPrevValue), 0);
+        long hotWaterVal = Math.max(Utils.getValue(hotWaterValue) - Utils.getValue(hotWaterPrevValue), 0);
+        long coldWaterVal = Math.max(Utils.getValue(coldWaterValue) - Utils.getValue(coldWaterPrevValue), 0);
 
-        long electricityVal = Math.max(getValue(electricityValue) - getValue(electricityPrevValue), 0);
+        long electricityVal = Math.max(Utils.getValue(electricityValue) - Utils.getValue(electricityPrevValue), 0);
 
         canalizationValue.setText(String.valueOf(hotWaterVal + coldWaterVal));
 
-        long hotWaterTotal = getValue(hotWaterTax) * hotWaterVal;
-        long coldWaterTotal = getValue(coldWaterTax) * coldWaterVal;
-        long canalizationTotal = getValue(canalizationTax) * getValue(canalizationValue);
-        long electricityTotal = getValue(electricityTax) * electricityVal;
+        long hotWaterTotal = Utils.getValue(hotWaterTax) * hotWaterVal;
+        long coldWaterTotal = Utils.getValue(coldWaterTax) * coldWaterVal;
+        long canalizationTotal = Utils.getValue(canalizationTax) * Utils.getValue(canalizationValue);
+        long electricityTotal = Utils.getValue(electricityTax) * electricityVal;
 
         hotWaterSum.setText(String.valueOf(hotWaterTotal));
         coldWaterSum.setText(String.valueOf(coldWaterTotal));

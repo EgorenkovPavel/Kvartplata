@@ -36,4 +36,6 @@
     <string name="pref_payment_types_title">Payment types</string>
     <string name="pref_payment_types_key">payment types</string>
     <string name="initial_data">Initial data</string>
+    <string name="action_initial_data">Initial data</string>
+    <string name="meters">Meters</string>
 </resources>

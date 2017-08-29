@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
+import com.epipasha.kvartplata.Utils;
 import com.epipasha.kvartplata.data.KvartplataContract.BillEntry;
 import com.epipasha.kvartplata.data.KvartplataContract.CanalizationEntry;
 import com.epipasha.kvartplata.data.KvartplataContract.ColdWaterEntry;
@@ -18,6 +19,8 @@ import java.util.Calendar;
 public class KvartplataDbManager {
 
     private static final SQLiteQueryBuilder totalSumQueryBuilder;
+
+    public static final int initialBillId = makeKey(0,0);
 
     static{
         totalSumQueryBuilder = new SQLiteQueryBuilder();
@@ -45,11 +48,6 @@ public class KvartplataDbManager {
         KvartplataDbHelper dbHelper = new KvartplataDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-//        Cursor c = db.query(BillEntry.TABLE_NAME,
-//                new String[]{"COUNT(*)", "MAX("+BillEntry.COLUMN_MONTH + ")", BillEntry.COLUMN_YEAR},
-//                BillEntry.COLUMN_YEAR + " = " + "(SELECT max(" + BillEntry.COLUMN_YEAR + ") FROM " + BillEntry.TABLE_NAME + ")",
-//                null,null, null, null);
-
         Cursor c = db.query(BillEntry.TABLE_NAME,
                 new String[]{"COUNT(*)", BillEntry.COLUMN_KEY},
                 null,null,null, null, BillEntry.COLUMN_KEY + " DESC", "1");
@@ -73,28 +71,19 @@ public class KvartplataDbManager {
             }
         }
 
-        ContentValues values = new ContentValues();
-        values.put(BillEntry.COLUMN_KEY, KvartplataDbManager.makeKey(month, year));
+        int billId = KvartplataDbManager.makeKey(month, year);
 
-        int billId = (int)db.insert(BillEntry.TABLE_NAME, null, values);
-
-        ContentValues hotWaterValues = new ContentValues();
-        hotWaterValues.put(HotWaterEntry.COLUMN_BILL, billId);
-        db.insert(HotWaterEntry.TABLE_NAME, null, hotWaterValues);
-
-        ContentValues coldWaterValues = new ContentValues();
-        coldWaterValues.put(ColdWaterEntry.COLUMN_BILL, billId);
-        db.insert(ColdWaterEntry.TABLE_NAME, null, coldWaterValues);
-
-        ContentValues canalizationValues = new ContentValues();
-        coldWaterValues.put(CanalizationEntry.COLUMN_BILL, billId);
-        db.insert(CanalizationEntry.TABLE_NAME, null, canalizationValues);
-
-        ContentValues electricityValues = new ContentValues();
-        coldWaterValues.put(ElectricityEntry.COLUMN_BILL, billId);
-        db.insert(ElectricityEntry.TABLE_NAME, null, electricityValues);
+        createBill(context, billId);
 
         return billId;
+    }
+
+    public static Cursor getBillData(Context context, String[] columns){
+        KvartplataDbHelper dbHelper = new KvartplataDbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor c = totalSumQueryBuilder.query(db,columns,
+                BillEntry.TABLE_NAME +"."+BillEntry.COLUMN_KEY + " <> " + initialBillId,null,null,null,null);
+        return c;
     }
 
     public static Cursor getDetailData(Context context, int billId){
@@ -105,12 +94,16 @@ public class KvartplataDbManager {
         return c;
     }
 
-    public static Cursor getBillData(Context context, String[] columns){
-        KvartplataDbHelper dbHelper = new KvartplataDbHelper(context);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor c = totalSumQueryBuilder.query(db,columns,null,null,null,null,null);
-        return c;
+
+    public static void createInitialData(Context context){
+        createBill(context, initialBillId);
     }
+
+    public static Cursor getInitialData(Context context){
+        return getDetailData(context, initialBillId);
+    }
+
+
 
 
     public static String getBillDate(int month, int year){
@@ -138,5 +131,32 @@ public class KvartplataDbManager {
         return key / 100;
     }
 
+    private static void createBill(Context context, int billId){
+
+        KvartplataDbHelper dbHelper = new KvartplataDbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(BillEntry.COLUMN_KEY, billId);
+
+        db.insert(BillEntry.TABLE_NAME, null, values);
+
+        ContentValues hotWaterValues = new ContentValues();
+        hotWaterValues.put(HotWaterEntry.COLUMN_BILL, billId);
+        db.insert(HotWaterEntry.TABLE_NAME, null, hotWaterValues);
+
+        ContentValues coldWaterValues = new ContentValues();
+        coldWaterValues.put(ColdWaterEntry.COLUMN_BILL, billId);
+        db.insert(ColdWaterEntry.TABLE_NAME, null, coldWaterValues);
+
+        ContentValues canalizationValues = new ContentValues();
+        coldWaterValues.put(CanalizationEntry.COLUMN_BILL, billId);
+        db.insert(CanalizationEntry.TABLE_NAME, null, canalizationValues);
+
+        ContentValues electricityValues = new ContentValues();
+        coldWaterValues.put(ElectricityEntry.COLUMN_BILL, billId);
+        db.insert(ElectricityEntry.TABLE_NAME, null, electricityValues);
+
+    }
 
 }
