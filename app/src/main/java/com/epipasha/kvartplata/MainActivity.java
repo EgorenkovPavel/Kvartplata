@@ -1,61 +1,49 @@
 package com.epipasha.kvartplata;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    Context context = this;
+    private static List<Payment> mPayments;
+    static{
+        mPayments = new ArrayList<>();
+        mPayments.add(new Payment(new Date(), 1000));
+        mPayments.add(new Payment(new Date(), 2000));
+        mPayments.add(new Payment(new Date(), 3000));
+        mPayments.add(new Payment(new Date(), 4000));
+        mPayments.add(new Payment(new Date(), 5000));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), DetailActivity.class);
-                i.putExtra(DetailFragment.DB_ID, 0);
-                view.getContext().startActivity(i);
-            }
-        });
+        RecyclerView rvPaymentsList = findViewById(R.id.rvPaymentList);
 
-    }
+        rvPaymentsList.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        rvPaymentsList.setLayoutManager(layoutManager);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        DividerItemDecoration decor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        rvPaymentsList.addItemDecoration(decor);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        PaymentAdapter adapter = new PaymentAdapter();
+        adapter.setItems(mPayments);
+        rvPaymentsList.setAdapter(adapter);
 
-        if (id == R.id.action_initial_data){
-            Intent i = new Intent(this, InitialDataActivity.class);
-            startActivity(i);
-        }else if (id == R.id.action_settings) {
-            Intent i = new Intent(this, SettingsActivity.class);
-            startActivity(i);
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
  }

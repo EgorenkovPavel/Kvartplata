@@ -38,4 +38,9 @@
     <string name="initial_data">Initial data</string>
     <string name="action_initial_data">Initial data</string>
     <string name="meters">Meters</string>
+    <string name="pref_enable_internet_label">Internet</string>
+    <string name="pref_enable_internet_key">Internet</string>
+    <string name="pref_enable_internet_false">Not enabled</string>
+    <string name="pref_enable_internet_true">Enabled</string>
+    <string name="pref_enable_internet_default">true</string>
 </resources>

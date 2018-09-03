@@ -31,5 +31,15 @@
         android:summaryOff="@string/pref_enable_electricity_false"
         android:summaryOn="@string/pref_enable_electricity_true"
         android:defaultValue="@string/pref_enable_electricity_default" />
+
+    <CheckBoxPreference
+        android:title="@string/pref_enable_internet_label"
+        android:key="@string/pref_enable_internet_key"
+        android:summaryOff="@string/pref_enable_internet_false"
+        android:summaryOn="@string/pref_enable_internet_true"
+        android:defaultValue="@string/pref_enable_internet_default" />
+
     </PreferenceCategory>
-</PreferenceScreen>
+
+
+    </PreferenceScreen>
