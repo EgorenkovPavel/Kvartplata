@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.epipasha.kvartplata"
         minSdkVersion 15
@@ -32,7 +32,12 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation "android.arch.lifecycle:extensions:1.1.1"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    implementation "androidx.room:room-runtime:2.0.0"
+    annotationProcessor "androidx.room:room-compiler:2.0.0"
+
+    annotationProcessor "androidx.databinding:databinding-compiler:3.3.0-alpha13"
 
     testImplementation 'junit:junit:4.12'
 }

@@ -2,6 +2,8 @@ package com.epipasha.kvartplata.fragments;
 
 import android.app.Application;
 
+import com.epipasha.kvartplata.data.Repository;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.AndroidViewModel;
@@ -14,7 +16,7 @@ public class ColdWaterFragmentViewModel extends AndroidViewModel {
     private ObservableInt deltaField = new ObservableInt();
     private ObservableInt sumField = new ObservableInt();
 
-    public ColdWaterFragmentViewModel(@NonNull Application application) {
+    public ColdWaterFragmentViewModel(@NonNull Application application, Repository repository) {
         super(application);
 
         prevValueField.set(12);

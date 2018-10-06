@@ -37,7 +37,7 @@
                     android:ems="10"
                     android:hint="@string/previous_value"
                     android:inputType="numberDecimal"
-                    android:onTextChanged="@{model.onPrevValueChanged}"
+                    android:onTextChanged="@{model::onPrevValueChanged}"
                     android:text="@{String.valueOf(model.prevValue)}"
                     tools:text="1000" />
 
@@ -58,7 +58,7 @@
                     android:ems="10"
                     android:hint="@string/present_value"
                     android:inputType="numberDecimal"
-                    android:onTextChanged="@{model.onPresValueChanged}"
+                    android:onTextChanged="@{model::onPresValueChanged}"
                     android:text="@{String.valueOf(model.presValue)}"
                     tools:text="1500" />
 
@@ -81,7 +81,7 @@
                     android:ems="10"
                     android:hint="@string/tax"
                     android:inputType="numberDecimal"
-                    android:onTextChanged="@{model.onTaxChanged}"
+                    android:onTextChanged="@{model::onTaxChanged}"
                     android:text="@{String.valueOf(model.tax)}"
                     tools:text="20" />
 

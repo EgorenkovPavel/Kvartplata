@@ -1,13 +1,9 @@
 package com.epipasha.kvartplata.fragments;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.epipasha.kvartplata.R;
 import com.epipasha.kvartplata.databinding.FragmentColdWaterBinding;
@@ -40,7 +36,7 @@ public class ColdWaterFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = ViewModelProviders.of(getActivity()).get(ColdWaterFragmentViewModel.class);
+        model = ViewModelProviders.of(getActivity(), ViewModelFactory.getInstance(getActivity().getApplication())).get(ColdWaterFragmentViewModel.class);
     }
 
 }
