@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.epipasha.kvartplata.data.Conv"/>
         <variable
             name="model"
-            type="com.epipasha.kvartplata.fragments.ColdWaterFragmentViewModel"/>
+            type="com.epipasha.kvartplata.fragments.PaymentViewModel"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -37,8 +38,7 @@
                     android:ems="10"
                     android:hint="@string/previous_value"
                     android:inputType="numberDecimal"
-                    android:onTextChanged="@{model::onPrevValueChanged}"
-                    android:text="@{String.valueOf(model.prevValue)}"
+                    android:text="@={Conv.convertIntToString(model.coldWater.pastValue)}"
                     tools:text="1000" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -58,8 +58,7 @@
                     android:ems="10"
                     android:hint="@string/present_value"
                     android:inputType="numberDecimal"
-                    android:onTextChanged="@{model::onPresValueChanged}"
-                    android:text="@{String.valueOf(model.presValue)}"
+                    android:text="@={Conv.convertIntToString(model.coldWater.presentValue)}"
                     tools:text="1500" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -81,8 +80,7 @@
                     android:ems="10"
                     android:hint="@string/tax"
                     android:inputType="numberDecimal"
-                    android:onTextChanged="@{model::onTaxChanged}"
-                    android:text="@{String.valueOf(model.tax)}"
+                    android:text="@={Conv.convertIntToString(model.coldWater.tax)}"
                     tools:text="20" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -93,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="@{String.valueOf(model.delta)}"
+                android:text="@{Conv.convertIntToString(model.coldWater.delta)}"
                 app:layout_constraintBottom_toBottomOf="@+id/etPresValue"
                 app:layout_constraintStart_toEndOf="@+id/etPresValue"
                 app:layout_constraintTop_toTopOf="@+id/etPresValue"
@@ -105,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="@{String.valueOf(model.sum)}"
+                android:text="@{Conv.convertIntToString(model.coldWater.sum)}"
                 app:layout_constraintBottom_toBottomOf="@+id/etTax"
                 app:layout_constraintStart_toEndOf="@+id/etTax"
                 app:layout_constraintTop_toTopOf="@+id/etTax"

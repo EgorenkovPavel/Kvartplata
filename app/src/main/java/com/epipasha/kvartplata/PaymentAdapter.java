@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.epipasha.kvartplata.data.PaymentEntity;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
 
-    private List<Payment> items;
+    private List<PaymentEntity> items;
     private PaymentClickListener mListener;
 
     @NonNull
@@ -23,13 +25,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     }
 
     interface PaymentClickListener{
-        void OnPaymentClick(Payment payment);
+        void OnPaymentClick(PaymentEntity payment);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Payment payment = items.get(position);
+        PaymentEntity payment = items.get(position);
 
         SimpleDateFormat format = new SimpleDateFormat("MMM YYYY");
         holder.tvMonth.setText(format.format(payment.getDate()));
@@ -41,7 +43,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
         return items == null ? 0 : items.size();
     }
 
-    public void setItems(List<Payment> payments){
+    public void setItems(List<PaymentEntity> payments){
         items = payments;
         notifyDataSetChanged();
     }

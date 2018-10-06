@@ -22,7 +22,8 @@
 
         <activity
             android:name=".PaymentDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity">
 
         </activity>
     </application>

@@ -2,9 +2,12 @@ package com.epipasha.kvartplata.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.epipasha.kvartplata.PaymentDetailActivity;
 import com.epipasha.kvartplata.R;
 import com.epipasha.kvartplata.databinding.FragmentColdWaterBinding;
 
@@ -13,9 +16,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-public class ColdWaterFragment extends Fragment {
+public class ColdWaterFragment extends Fragment{
 
-    private ColdWaterFragmentViewModel model;
+    private PaymentViewModel model;
 
     public ColdWaterFragment() {
 
@@ -36,7 +39,7 @@ public class ColdWaterFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = ViewModelProviders.of(getActivity(), ViewModelFactory.getInstance(getActivity().getApplication())).get(ColdWaterFragmentViewModel.class);
+        model = ViewModelProviders.of(getActivity(), ViewModelFactory.getInstance(getActivity().getApplication())).get(PaymentViewModel.class);
     }
 
 }
