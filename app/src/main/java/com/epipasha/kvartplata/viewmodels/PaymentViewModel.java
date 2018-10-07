@@ -10,10 +10,13 @@ import com.epipasha.kvartplata.data.entities.DrainEntity;
 import com.epipasha.kvartplata.data.entities.HotWaterEntity;
 import com.epipasha.kvartplata.data.entities.InternetEntity;
 import com.epipasha.kvartplata.data.entities.PaymentEntity;
-import com.epipasha.kvartplata.fragments.InternetFragment;
+
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
+import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 import androidx.lifecycle.AndroidViewModel;
 
 public class PaymentViewModel extends AndroidViewModel {
@@ -21,36 +24,72 @@ public class PaymentViewModel extends AndroidViewModel {
     private Repository mRepository;
     private int mPaymentId;
 
+    private ObservableInt mSum = new ObservableInt();
+    private ObservableField<Date> mDate = new ObservableField<>();
+
     private ColdWaterEntity coldWater;
     private HotWaterEntity hotWater;
     private DrainEntity drain;
     private InternetEntity internet;
 
+    private Observable.OnPropertyChangedCallback mWaterDeltaCallback = new Observable.OnPropertyChangedCallback() {
+        @Override
+        public void onPropertyChanged(Observable sender, int propertyId) {
+            if (propertyId == BR.delta){
+                setDrainValue();
+            }
+        }
+    };
+
+    private Observable.OnPropertyChangedCallback mSumCallback = new Observable.OnPropertyChangedCallback() {
+        @Override
+        public void onPropertyChanged(Observable sender, int propertyId) {
+            if (propertyId == BR.sum){
+                setTotalSum();
+            }
+        }
+    };
+
     public PaymentViewModel(@NonNull Application application, Repository repository) {
         super(application);
 
         mRepository = repository;
-        coldWater = new ColdWaterEntity();
-        hotWater = new HotWaterEntity();
-        drain = new DrainEntity();
-        internet = new InternetEntity();
+        init(null);
+    }
 
-        coldWater.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                if (propertyId == BR.delta){
-                    setDrainValue();
-                }
-            }
-        });
-        hotWater.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                if (propertyId == BR.delta){
-                    setDrainValue();
-                }
-            }
-        });
+    private void init(PaymentEntity payment){
+        if (payment != null){
+            coldWater = payment.getColdWater();
+            hotWater = payment.getHotWater();
+            drain = payment.getDrain();
+            internet = payment.getInternet();
+
+            mDate.set(payment.getDate());
+            mSum.set(payment.getSum());
+        }else{
+            coldWater = new ColdWaterEntity();
+            hotWater = new HotWaterEntity();
+            drain = new DrainEntity();
+            internet = new InternetEntity();
+        }
+
+        coldWater.addOnPropertyChangedCallback(mWaterDeltaCallback);
+        hotWater.addOnPropertyChangedCallback(mWaterDeltaCallback);
+
+        coldWater.addOnPropertyChangedCallback(mSumCallback);
+        hotWater.addOnPropertyChangedCallback(mSumCallback);
+        drain.addOnPropertyChangedCallback(mSumCallback);
+        internet.addOnPropertyChangedCallback(mSumCallback);
+    }
+
+    private void setTotalSum() {
+        int coldWaterSum = coldWater == null ? 0 : coldWater.getSum();
+        int hotWaterSum = hotWater == null ? 0 : hotWater.getSum();
+        int drainSum = drain == null ? 0 : drain.getSum();
+        int internetSum = internet == null ? 0 : internet.getSum();
+
+        int sum = coldWaterSum + hotWaterSum + drainSum + internetSum;
+        mSum.set(sum);
     }
 
     private void setDrainValue(){
@@ -63,29 +102,7 @@ public class PaymentViewModel extends AndroidViewModel {
         mRepository.getPayment(paymentId, new DataSource.GetPaymentCallback() {
             @Override
             public void onSuccess(PaymentEntity entity) {
-                if (entity.getColdWater() != null){
-                    coldWater = entity.getColdWater();
-                    hotWater = entity.getHotWater();
-                    drain = entity.getDrain();
-                    internet = entity.getInternet();
-
-                    coldWater.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-                        @Override
-                        public void onPropertyChanged(Observable sender, int propertyId) {
-                            if (propertyId == BR.delta){
-                                setDrainValue();
-                            }
-                        }
-                    });
-                    hotWater.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-                        @Override
-                        public void onPropertyChanged(Observable sender, int propertyId) {
-                            if (propertyId == BR.delta){
-                                setDrainValue();
-                            }
-                        }
-                    });
-                }
+                init(entity);
             }
 
             @Override
@@ -93,6 +110,14 @@ public class PaymentViewModel extends AndroidViewModel {
 
             }
         });
+    }
+
+    public ObservableField<Date> getDate() {
+        return mDate;
+    }
+
+    public ObservableInt getSum() {
+        return mSum;
     }
 
     public ColdWaterEntity getColdWater() {
@@ -112,7 +137,7 @@ public class PaymentViewModel extends AndroidViewModel {
     }
 
     public void save() {
-        PaymentEntity payment = new PaymentEntity(mPaymentId, 1, 1);
+        PaymentEntity payment = new PaymentEntity(mPaymentId, 1, 1, mSum.get());
         payment.setColdWater(coldWater);
         payment.setHotWater(hotWater);
         payment.setDrain(drain);

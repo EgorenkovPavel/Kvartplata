@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.epipasha.kvartplata.databinding.ActivityPaymentDetailBinding;
+import com.epipasha.kvartplata.databinding.FragmentColdWaterBinding;
 import com.epipasha.kvartplata.fragments.ColdWaterFragment;
 import com.epipasha.kvartplata.fragments.DrainFragment;
 import com.epipasha.kvartplata.fragments.HotWaterFragment;
@@ -14,6 +17,7 @@ import com.epipasha.kvartplata.viewmodels.ViewModelFactory;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -32,13 +36,16 @@ public class PaymentDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment_detail);
+
+        model = ViewModelProviders.of(this, ViewModelFactory.getInstance(getApplication())).get(PaymentViewModel.class);
+        ActivityPaymentDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_detail);
+        //here data must be an instance of the class MarsDataProvider
+        binding.setModel(model);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        model = ViewModelProviders.of(this, ViewModelFactory.getInstance(getApplication())).get(PaymentViewModel.class);
 
         Intent i = getIntent();
         if (i.hasExtra(PAYMENT_ID)){

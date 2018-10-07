@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.epipasha.kvartplata.data.Conv;
 import com.epipasha.kvartplata.data.entities.PaymentEntity;
 
 import java.text.SimpleDateFormat;
@@ -34,8 +35,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PaymentEntity payment = items.get(position);
 
-        SimpleDateFormat format = new SimpleDateFormat("MMM YYYY");
-        holder.tvMonth.setText(format.format(payment.getDate()));
+        holder.tvMonth.setText(Conv.convertDateToString(payment.getDate()));
         holder.tvSum.setText(String.valueOf(payment.getSum()));
     }
 

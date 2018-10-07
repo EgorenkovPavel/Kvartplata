@@ -80,7 +80,6 @@ public class PaymentEntity {
 
     public void setColdWater(ColdWaterEntity coldWater) {
         this.coldWater = coldWater;
-        calcSum();
     }
 
     public HotWaterEntity getHotWater() {
@@ -89,7 +88,6 @@ public class PaymentEntity {
 
     public void setHotWater(HotWaterEntity hotWater) {
         this.hotWater = hotWater;
-        calcSum();
     }
 
     public DrainEntity getDrain() {
@@ -98,7 +96,6 @@ public class PaymentEntity {
 
     public void setDrain(DrainEntity drain) {
         this.drain = drain;
-        calcSum();
     }
 
     public InternetEntity getInternet() {
@@ -107,15 +104,6 @@ public class PaymentEntity {
 
     public void setInternet(InternetEntity internet) {
         this.internet = internet;
-    }
-
-    private void calcSum(){
-        int coldWaterSum = coldWater == null ? 0 : coldWater.getSum();
-        int hotWaterSum = hotWater == null ? 0 : hotWater.getSum();
-        int drainSum = drain == null ? 0 : drain.getSum();
-        int internetSum = internet == null ? 0 : internet.getSum();
-
-        sum = coldWaterSum + hotWaterSum + drainSum + internetSum;
     }
 
 }
