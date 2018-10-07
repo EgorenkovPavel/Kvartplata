@@ -1,4 +1,4 @@
-package com.epipasha.kvartplata.data;
+package com.epipasha.kvartplata.data.entities;
 
 import java.util.Date;
 
@@ -26,6 +26,9 @@ public class PaymentEntity {
 
     @Embedded(prefix = "cold_water")
     private ColdWaterEntity coldWater;
+
+    @Embedded(prefix = "hot_water")
+    private HotWaterEntity hotWater;
 
     public PaymentEntity(int id, int month, int year, int sum) {
         this.id = id;
@@ -70,7 +73,18 @@ public class PaymentEntity {
         calcSum();
     }
 
+    public HotWaterEntity getHotWater() {
+        return hotWater;
+    }
+
+    public void setHotWater(HotWaterEntity hotWater) {
+        this.hotWater = hotWater;
+        calcSum();
+    }
+
     private void calcSum(){
-        sum = coldWater == null ? 0 : coldWater.getSum();
+        int coldWaterSum = coldWater == null ? 0 : coldWater.getSum();
+        int hotWaterSum = hotWater == null ? 0 : hotWater.getSum();
+        sum = coldWaterSum + hotWaterSum;
     }
 }

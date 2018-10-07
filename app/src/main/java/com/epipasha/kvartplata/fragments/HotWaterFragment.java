@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.epipasha.kvartplata.R;
-import com.epipasha.kvartplata.databinding.FragmentColdWaterBinding;
+import com.epipasha.kvartplata.databinding.FragmentHotWaterBinding;
 import com.epipasha.kvartplata.viewmodels.PaymentViewModel;
 import com.epipasha.kvartplata.viewmodels.ViewModelFactory;
 
@@ -15,11 +15,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-public class ColdWaterFragment extends Fragment{
+public class HotWaterFragment extends Fragment{
 
     private PaymentViewModel model;
 
-    public ColdWaterFragment() {
+    public HotWaterFragment() {
 
     }
 
@@ -27,8 +27,8 @@ public class ColdWaterFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        FragmentColdWaterBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_cold_water, container, false);
+        FragmentHotWaterBinding binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_hot_water, container, false);
         View view = binding.getRoot();
         //here data must be an instance of the class MarsDataProvider
         binding.setModel(model);

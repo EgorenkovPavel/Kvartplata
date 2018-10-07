@@ -19,7 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".fragments.ColdWaterFragment">
+            tools:context=".fragments.HotWaterFragment">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etPrevValue"
@@ -38,7 +38,7 @@
                     android:ems="10"
                     android:hint="@string/previous_value"
                     android:inputType="numberDecimal"
-                    android:text="@={Conv.convertIntToString(model.coldWater.pastValue)}"
+                    android:text="@={Conv.convertIntToString(model.hotWater.pastValue)}"
                     tools:text="1000" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -58,7 +58,7 @@
                     android:ems="10"
                     android:hint="@string/present_value"
                     android:inputType="numberDecimal"
-                    android:text="@={Conv.convertIntToString(model.coldWater.presentValue)}"
+                    android:text="@={Conv.convertIntToString(model.hotWater.presentValue)}"
                     tools:text="1500" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +80,7 @@
                     android:ems="10"
                     android:hint="@string/tax"
                     android:inputType="numberDecimal"
-                    android:text="@={Conv.convertIntToString(model.coldWater.tax)}"
+                    android:text="@={Conv.convertIntToString(model.hotWater.tax)}"
                     tools:text="20" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="@{Conv.convertIntToString(model.coldWater.delta)}"
+                android:text="@{Conv.convertIntToString(model.hotWater.delta)}"
                 app:layout_constraintBottom_toBottomOf="@+id/etPresValue"
                 app:layout_constraintStart_toEndOf="@+id/etPresValue"
                 app:layout_constraintTop_toTopOf="@+id/etPresValue"
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="@{Conv.convertIntToString(model.coldWater.sum)}"
+                android:text="@{Conv.convertIntToString(model.hotWater.sum)}"
                 app:layout_constraintBottom_toBottomOf="@+id/etTax"
                 app:layout_constraintStart_toEndOf="@+id/etTax"
                 app:layout_constraintTop_toTopOf="@+id/etTax"
@@ -116,7 +116,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/cold_water"
+                android:text="@string/hot_water"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

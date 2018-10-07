@@ -1,16 +1,14 @@
-package com.epipasha.kvartplata.fragments;
+package com.epipasha.kvartplata.viewmodels;
 
 import android.app.Application;
 
-import com.epipasha.kvartplata.data.ColdWaterEntity;
 import com.epipasha.kvartplata.data.DataSource;
-import com.epipasha.kvartplata.data.PaymentEntity;
 import com.epipasha.kvartplata.data.Repository;
+import com.epipasha.kvartplata.data.entities.ColdWaterEntity;
+import com.epipasha.kvartplata.data.entities.HotWaterEntity;
+import com.epipasha.kvartplata.data.entities.PaymentEntity;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.InverseMethod;
-import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
 import androidx.lifecycle.AndroidViewModel;
 
 public class PaymentViewModel extends AndroidViewModel {
@@ -19,12 +17,14 @@ public class PaymentViewModel extends AndroidViewModel {
     private int mPaymentId;
 
     private ColdWaterEntity coldWater;
+    private HotWaterEntity hotWater;
 
     public PaymentViewModel(@NonNull Application application, Repository repository) {
         super(application);
 
         mRepository = repository;
         coldWater = new ColdWaterEntity();
+        hotWater = new HotWaterEntity();
     }
 
     public void start(int paymentId) {
@@ -35,6 +35,7 @@ public class PaymentViewModel extends AndroidViewModel {
             public void onSuccess(PaymentEntity entity) {
                 if (entity.getColdWater() != null){
                     coldWater = entity.getColdWater();
+                    hotWater = entity.getHotWater();
                 }
             }
 
@@ -49,9 +50,14 @@ public class PaymentViewModel extends AndroidViewModel {
         return coldWater;
     }
 
+    public HotWaterEntity getHotWater() {
+        return hotWater;
+    }
+
     public void save() {
         PaymentEntity payment = new PaymentEntity(mPaymentId, 1, 1);
         payment.setColdWater(coldWater);
+        payment.setHotWater(hotWater);
         mRepository.savePayment(payment);
     }
 }

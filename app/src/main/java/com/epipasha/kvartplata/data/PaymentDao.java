@@ -1,5 +1,7 @@
 package com.epipasha.kvartplata.data;
 
+import com.epipasha.kvartplata.data.entities.PaymentEntity;
+
 import java.util.List;
 
 import androidx.lifecycle.LiveData;

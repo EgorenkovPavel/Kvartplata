@@ -1,4 +1,4 @@
-package com.epipasha.kvartplata.data;
+package com.epipasha.kvartplata.data.entities;
 
 import com.epipasha.kvartplata.BR;
 
@@ -7,7 +7,7 @@ import androidx.databinding.Bindable;
 import androidx.room.ColumnInfo;
 import androidx.room.Ignore;
 
-public class ColdWaterEntity extends BaseObservable {
+public class HotWaterEntity extends BaseObservable {
 
     @ColumnInfo(name = "past_value")
     private int pastValue;
@@ -71,6 +71,7 @@ public class ColdWaterEntity extends BaseObservable {
     private void calculate(){
         delta = presentValue - pastValue;
         sum = tax * delta;
-        notifyPropertyChanged(BR._all);
+        notifyPropertyChanged(BR.delta);
+        notifyPropertyChanged(BR.sum);
     }
 }

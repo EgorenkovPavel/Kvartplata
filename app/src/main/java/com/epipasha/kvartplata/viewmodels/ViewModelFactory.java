@@ -1,10 +1,11 @@
-package com.epipasha.kvartplata.fragments;
+package com.epipasha.kvartplata.viewmodels;
 
 import android.app.Application;
 
 import com.epipasha.kvartplata.data.AppDatabase;
 import com.epipasha.kvartplata.data.LocalDataSource;
 import com.epipasha.kvartplata.data.Repository;
+import com.epipasha.kvartplata.viewmodels.PaymentViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;

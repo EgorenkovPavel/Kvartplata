@@ -1,9 +1,9 @@
-package com.epipasha.kvartplata.fragments;
+package com.epipasha.kvartplata.viewmodels;
 
 import android.app.Application;
 
-import com.epipasha.kvartplata.data.PaymentEntity;
 import com.epipasha.kvartplata.data.Repository;
+import com.epipasha.kvartplata.data.entities.PaymentEntity;
 
 import java.util.List;
 

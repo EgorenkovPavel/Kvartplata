@@ -2,6 +2,8 @@ package com.epipasha.kvartplata.data;
 
 import android.content.Context;
 
+import com.epipasha.kvartplata.data.entities.PaymentEntity;
+
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
