@@ -8,7 +8,9 @@ import com.epipasha.kvartplata.data.Repository;
 import com.epipasha.kvartplata.data.entities.ColdWaterEntity;
 import com.epipasha.kvartplata.data.entities.DrainEntity;
 import com.epipasha.kvartplata.data.entities.HotWaterEntity;
+import com.epipasha.kvartplata.data.entities.InternetEntity;
 import com.epipasha.kvartplata.data.entities.PaymentEntity;
+import com.epipasha.kvartplata.fragments.InternetFragment;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
@@ -22,6 +24,7 @@ public class PaymentViewModel extends AndroidViewModel {
     private ColdWaterEntity coldWater;
     private HotWaterEntity hotWater;
     private DrainEntity drain;
+    private InternetEntity internet;
 
     public PaymentViewModel(@NonNull Application application, Repository repository) {
         super(application);
@@ -30,6 +33,7 @@ public class PaymentViewModel extends AndroidViewModel {
         coldWater = new ColdWaterEntity();
         hotWater = new HotWaterEntity();
         drain = new DrainEntity();
+        internet = new InternetEntity();
 
         coldWater.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
@@ -63,6 +67,7 @@ public class PaymentViewModel extends AndroidViewModel {
                     coldWater = entity.getColdWater();
                     hotWater = entity.getHotWater();
                     drain = entity.getDrain();
+                    internet = entity.getInternet();
 
                     coldWater.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
                         @Override
@@ -102,13 +107,16 @@ public class PaymentViewModel extends AndroidViewModel {
         return drain;
     }
 
-
+    public InternetEntity getInternet() {
+        return internet;
+    }
 
     public void save() {
         PaymentEntity payment = new PaymentEntity(mPaymentId, 1, 1);
         payment.setColdWater(coldWater);
         payment.setHotWater(hotWater);
         payment.setDrain(drain);
+        payment.setInternet(internet);
         mRepository.savePayment(payment);
     }
 }

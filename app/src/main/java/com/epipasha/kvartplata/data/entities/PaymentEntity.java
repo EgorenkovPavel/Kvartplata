@@ -37,6 +37,9 @@ public class PaymentEntity {
     @Embedded(prefix = "drain")
     private DrainEntity drain;
 
+    @Embedded(prefix = "internet")
+    private InternetEntity internet;
+
     public PaymentEntity(int id, int month, int year, int sum) {
         this.id = id;
         this.month = month;
@@ -98,12 +101,21 @@ public class PaymentEntity {
         calcSum();
     }
 
+    public InternetEntity getInternet() {
+        return internet;
+    }
+
+    public void setInternet(InternetEntity internet) {
+        this.internet = internet;
+    }
+
     private void calcSum(){
         int coldWaterSum = coldWater == null ? 0 : coldWater.getSum();
         int hotWaterSum = hotWater == null ? 0 : hotWater.getSum();
         int drainSum = drain == null ? 0 : drain.getSum();
+        int internetSum = internet == null ? 0 : internet.getSum();
 
-        sum = coldWaterSum + hotWaterSum + drainSum;
+        sum = coldWaterSum + hotWaterSum + drainSum + internetSum;
     }
 
 }
