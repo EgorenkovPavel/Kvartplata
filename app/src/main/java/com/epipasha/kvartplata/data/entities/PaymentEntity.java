@@ -1,7 +1,11 @@
 package com.epipasha.kvartplata.data.entities;
 
+import com.epipasha.kvartplata.BR;
+
 import java.util.Date;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
@@ -29,6 +33,9 @@ public class PaymentEntity {
 
     @Embedded(prefix = "hot_water")
     private HotWaterEntity hotWater;
+
+    @Embedded(prefix = "drain")
+    private DrainEntity drain;
 
     public PaymentEntity(int id, int month, int year, int sum) {
         this.id = id;
@@ -82,9 +89,22 @@ public class PaymentEntity {
         calcSum();
     }
 
+    public DrainEntity getDrain() {
+        return drain;
+    }
+
+    public void setDrain(DrainEntity drain) {
+        this.drain = drain;
+        calcSum();
+    }
+
     private void calcSum(){
         int coldWaterSum = coldWater == null ? 0 : coldWater.getSum();
         int hotWaterSum = hotWater == null ? 0 : hotWater.getSum();
-        sum = coldWaterSum + hotWaterSum;
+        int drainSum = drain == null ? 0 : drain.getSum();
+
+        sum = coldWaterSum + hotWaterSum + drainSum;
     }
+
+
 }

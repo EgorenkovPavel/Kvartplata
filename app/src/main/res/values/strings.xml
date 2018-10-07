@@ -45,4 +45,5 @@
     <string name="pref_enable_internet_default">true</string>
     <string name="previous_value">Previous value</string>
     <string name="present_value">Present value</string>
+    <string name="drain">Drain</string>
 </resources>

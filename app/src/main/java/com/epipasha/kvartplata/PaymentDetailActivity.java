@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.epipasha.kvartplata.fragments.ColdWaterFragment;
+import com.epipasha.kvartplata.fragments.DrainFragment;
 import com.epipasha.kvartplata.fragments.HotWaterFragment;
 import com.epipasha.kvartplata.viewmodels.PaymentViewModel;
 import com.epipasha.kvartplata.viewmodels.ViewModelFactory;
@@ -24,6 +25,7 @@ public class PaymentDetailActivity extends AppCompatActivity {
 
     private ColdWaterFragment mColdWaterFragment;
     private HotWaterFragment mHotWaterFragment;
+    private DrainFragment mDrainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,13 @@ public class PaymentDetailActivity extends AppCompatActivity {
 
         mColdWaterFragment = new ColdWaterFragment();
         mHotWaterFragment = new HotWaterFragment();
+        mDrainFragment = new DrainFragment();
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tr = fm.beginTransaction();
         tr.add(R.id.container, mColdWaterFragment);
         tr.add(R.id.container, mHotWaterFragment);
+        tr.add(R.id.container, mDrainFragment);
         tr.commit();
     }
 

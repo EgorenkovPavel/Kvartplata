@@ -5,6 +5,7 @@ import android.app.Application;
 import com.epipasha.kvartplata.data.DataSource;
 import com.epipasha.kvartplata.data.Repository;
 import com.epipasha.kvartplata.data.entities.ColdWaterEntity;
+import com.epipasha.kvartplata.data.entities.DrainEntity;
 import com.epipasha.kvartplata.data.entities.HotWaterEntity;
 import com.epipasha.kvartplata.data.entities.PaymentEntity;
 
@@ -18,6 +19,7 @@ public class PaymentViewModel extends AndroidViewModel {
 
     private ColdWaterEntity coldWater;
     private HotWaterEntity hotWater;
+    private DrainEntity drain;
 
     public PaymentViewModel(@NonNull Application application, Repository repository) {
         super(application);
@@ -25,6 +27,7 @@ public class PaymentViewModel extends AndroidViewModel {
         mRepository = repository;
         coldWater = new ColdWaterEntity();
         hotWater = new HotWaterEntity();
+        drain = new DrainEntity();
     }
 
     public void start(int paymentId) {
@@ -36,6 +39,7 @@ public class PaymentViewModel extends AndroidViewModel {
                 if (entity.getColdWater() != null){
                     coldWater = entity.getColdWater();
                     hotWater = entity.getHotWater();
+                    drain = entity.getDrain();
                 }
             }
 
@@ -54,10 +58,15 @@ public class PaymentViewModel extends AndroidViewModel {
         return hotWater;
     }
 
+    public DrainEntity getDrain() {
+        return drain;
+    }
+
     public void save() {
         PaymentEntity payment = new PaymentEntity(mPaymentId, 1, 1);
         payment.setColdWater(coldWater);
         payment.setHotWater(hotWater);
+        payment.setDrain(drain);
         mRepository.savePayment(payment);
     }
 }
