@@ -1,9 +1,11 @@
 package com.epipasha.kvartplata.data.entities;
 
 import com.epipasha.kvartplata.BR;
+import com.epipasha.kvartplata.viewmodels.PaymentViewModel;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.Observable;
 import androidx.room.ColumnInfo;
 import androidx.room.Ignore;
 
@@ -74,4 +76,5 @@ public class ColdWaterEntity extends BaseObservable {
         notifyPropertyChanged(BR.delta);
         notifyPropertyChanged(BR.sum);
     }
+
 }

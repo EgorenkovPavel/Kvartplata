@@ -2,6 +2,7 @@ package com.epipasha.kvartplata.viewmodels;
 
 import android.app.Application;
 
+import com.epipasha.kvartplata.BR;
 import com.epipasha.kvartplata.data.DataSource;
 import com.epipasha.kvartplata.data.Repository;
 import com.epipasha.kvartplata.data.entities.ColdWaterEntity;
@@ -10,6 +11,7 @@ import com.epipasha.kvartplata.data.entities.HotWaterEntity;
 import com.epipasha.kvartplata.data.entities.PaymentEntity;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.Observable;
 import androidx.lifecycle.AndroidViewModel;
 
 public class PaymentViewModel extends AndroidViewModel {
@@ -28,6 +30,27 @@ public class PaymentViewModel extends AndroidViewModel {
         coldWater = new ColdWaterEntity();
         hotWater = new HotWaterEntity();
         drain = new DrainEntity();
+
+        coldWater.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if (propertyId == BR.delta){
+                    setDrainValue();
+                }
+            }
+        });
+        hotWater.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if (propertyId == BR.delta){
+                    setDrainValue();
+                }
+            }
+        });
+    }
+
+    private void setDrainValue(){
+        drain.setValue(coldWater.getDelta() + hotWater.getDelta());
     }
 
     public void start(int paymentId) {
@@ -40,6 +63,23 @@ public class PaymentViewModel extends AndroidViewModel {
                     coldWater = entity.getColdWater();
                     hotWater = entity.getHotWater();
                     drain = entity.getDrain();
+
+                    coldWater.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+                        @Override
+                        public void onPropertyChanged(Observable sender, int propertyId) {
+                            if (propertyId == BR.delta){
+                                setDrainValue();
+                            }
+                        }
+                    });
+                    hotWater.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+                        @Override
+                        public void onPropertyChanged(Observable sender, int propertyId) {
+                            if (propertyId == BR.delta){
+                                setDrainValue();
+                            }
+                        }
+                    });
                 }
             }
 
@@ -61,6 +101,8 @@ public class PaymentViewModel extends AndroidViewModel {
     public DrainEntity getDrain() {
         return drain;
     }
+
+
 
     public void save() {
         PaymentEntity payment = new PaymentEntity(mPaymentId, 1, 1);

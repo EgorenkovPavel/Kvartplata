@@ -19,6 +19,7 @@ public class DrainEntity extends BaseObservable {
 
     public void setValue(int value) {
         this.value = value;
+        notifyPropertyChanged(BR.value);
         calculate();
     }
 

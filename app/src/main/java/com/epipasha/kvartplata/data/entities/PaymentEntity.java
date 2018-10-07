@@ -106,5 +106,4 @@ public class PaymentEntity {
         sum = coldWaterSum + hotWaterSum + drainSum;
     }
 
-
 }
