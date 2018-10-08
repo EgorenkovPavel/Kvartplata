@@ -1,10 +1,13 @@
 package com.epipasha.kvartplata;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 
 import com.epipasha.kvartplata.databinding.ActivityPaymentDetailBinding;
 import com.epipasha.kvartplata.databinding.FragmentColdWaterBinding;
@@ -15,6 +18,10 @@ import com.epipasha.kvartplata.fragments.HotWaterFragment;
 import com.epipasha.kvartplata.fragments.InternetFragment;
 import com.epipasha.kvartplata.viewmodels.PaymentViewModel;
 import com.epipasha.kvartplata.viewmodels.ViewModelFactory;
+
+import java.lang.reflect.Field;
+import java.util.Calendar;
+import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -43,11 +50,11 @@ public class PaymentDetailActivity extends AppCompatActivity {
         ActivityPaymentDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_detail);
         //here data must be an instance of the class MarsDataProvider
         binding.setModel(model);
+        binding.setActivity(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         Intent i = getIntent();
         if (i.hasExtra(PAYMENT_ID)){
@@ -87,5 +94,24 @@ public class PaymentDetailActivity extends AppCompatActivity {
         }else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void onDateClick(View view){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(model.getDate().get());
+
+        DatePickerDialog dialog = new DatePickerDialog(this,
+                android.R.style.Theme_Holo_Dialog,
+                new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                model.setDate(new Date(year - 1900, month, day));
+            }
+        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+
+        //TODO fix
+        dialog.getDatePicker().findViewById(16908818).setVisibility(View.GONE);
+
+        dialog.show();
     }
 }

@@ -9,6 +9,9 @@
         <variable
             name="model"
             type="com.epipasha.kvartplata.viewmodels.PaymentViewModel"/>
+        <variable
+            name="activity"
+            type="com.epipasha.kvartplata.PaymentDetailActivity"/>
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,6 +31,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:title="@{Conv.convertDateToString(model.date)}"
+            android:onClick="@{activity::onDateClick}"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>

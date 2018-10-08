@@ -1,6 +1,8 @@
 package com.epipasha.kvartplata.viewmodels;
 
 import android.app.Application;
+import android.util.Log;
+import android.view.View;
 
 import com.epipasha.kvartplata.BR;
 import com.epipasha.kvartplata.data.DataSource;
@@ -209,4 +211,7 @@ public class PaymentViewModel extends AndroidViewModel {
         mRepository.savePayment(payment);
     }
 
+    public void setDate(Date date) {
+        mDate.set(date);
+    }
 }
