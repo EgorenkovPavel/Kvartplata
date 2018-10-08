@@ -9,7 +9,7 @@ import androidx.databinding.Observable;
 import androidx.room.ColumnInfo;
 import androidx.room.Ignore;
 
-public class ColdWaterEntity extends BaseObservable {
+public class ColdWaterEntity extends BaseObservable{
 
     @ColumnInfo(name = "past_value")
     private int pastValue;
@@ -72,7 +72,7 @@ public class ColdWaterEntity extends BaseObservable {
 
     private void calculate(){
         delta = presentValue - pastValue;
-        sum = tax * delta;
+        sum = delta > 0 ? tax * delta : 0;
         notifyPropertyChanged(BR.delta);
         notifyPropertyChanged(BR.sum);
     }

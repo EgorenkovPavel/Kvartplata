@@ -52,6 +52,8 @@ public class PaymentDetailActivity extends AppCompatActivity {
         Intent i = getIntent();
         if (i.hasExtra(PAYMENT_ID)){
             model.start(i.getIntExtra(PAYMENT_ID,0));
+        }else{
+            model.start();
         }
 
         mColdWaterFragment = new ColdWaterFragment();

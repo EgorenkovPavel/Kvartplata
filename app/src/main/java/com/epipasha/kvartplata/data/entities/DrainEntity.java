@@ -6,7 +6,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.ColumnInfo;
 
-public class DrainEntity extends BaseObservable {
+public class DrainEntity extends BaseObservable{
 
     @ColumnInfo(name = "value")
     private int value;
@@ -48,7 +48,7 @@ public class DrainEntity extends BaseObservable {
     }
 
     private void calculate(){
-        sum = tax * value;
+        sum = value > 0 ? tax * value : 0;
         notifyPropertyChanged(BR.sum);
     }
 }

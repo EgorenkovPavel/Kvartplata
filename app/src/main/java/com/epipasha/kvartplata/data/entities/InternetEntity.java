@@ -6,7 +6,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.ColumnInfo;
 
-public class InternetEntity extends BaseObservable {
+public class InternetEntity extends BaseObservable{
 
     @ColumnInfo(name = "sum")
     private int sum;

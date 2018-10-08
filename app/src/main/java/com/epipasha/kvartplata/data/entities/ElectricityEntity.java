@@ -7,7 +7,7 @@ import androidx.databinding.Bindable;
 import androidx.room.ColumnInfo;
 import androidx.room.Ignore;
 
-public class ElectricityEntity extends BaseObservable {
+public class ElectricityEntity extends BaseObservable{
 
     @ColumnInfo(name = "past_value")
     private int pastValue;
@@ -70,7 +70,7 @@ public class ElectricityEntity extends BaseObservable {
 
     private void calculate(){
         delta = presentValue - pastValue;
-        sum = tax * delta;
+        sum = delta > 0 ? tax * delta : 0;
         notifyPropertyChanged(BR.delta);
         notifyPropertyChanged(BR.sum);
     }

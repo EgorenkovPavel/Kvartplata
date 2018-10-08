@@ -44,6 +44,26 @@ public class LocalDataSource {
         });
     }
 
+    public void getLastPayment(final DataSource.GetPaymentCallback callback) {
+        mAppExecutors.discIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                PaymentEntity payment = mDb.paymentDao().getLastPayment();
+                callback.onSuccess(payment);
+            }
+        });
+    }
+
+    public void getPreviousPayment(final int month, final int year, final DataSource.GetPaymentCallback callback) {
+        mAppExecutors.discIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                PaymentEntity payment = mDb.paymentDao().getPreviousPayment(month, year);
+                callback.onSuccess(payment);
+            }
+        });
+    }
+
     public void savePayment(final PaymentEntity payment) {
         mAppExecutors.discIO().execute(new Runnable() {
             @Override

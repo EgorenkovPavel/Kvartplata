@@ -35,7 +35,16 @@ public class Repository {
         mLocalDataSource.getPayment(paymentId, callback);
     }
 
+    public void getPreviousPayment(int month, int year, DataSource.GetPaymentCallback getPaymentCallback) {
+        mLocalDataSource.getPreviousPayment(month, year, getPaymentCallback);
+    }
+
+    public void getLastPayment(DataSource.GetPaymentCallback getPaymentCallback){
+        mLocalDataSource.getLastPayment(getPaymentCallback);
+    }
+
     public void savePayment(PaymentEntity payment) {
         mLocalDataSource.savePayment(payment);
     }
-}
+
+ }
