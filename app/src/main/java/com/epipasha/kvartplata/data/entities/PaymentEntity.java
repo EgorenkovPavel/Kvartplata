@@ -37,6 +37,9 @@ public class PaymentEntity {
     @Embedded(prefix = "drain")
     private DrainEntity drain;
 
+    @Embedded(prefix = "electricity")
+    private ElectricityEntity electricity;
+
     @Embedded(prefix = "internet")
     private InternetEntity internet;
 
@@ -96,6 +99,14 @@ public class PaymentEntity {
 
     public void setDrain(DrainEntity drain) {
         this.drain = drain;
+    }
+
+    public ElectricityEntity getElectricity() {
+        return electricity;
+    }
+
+    public void setElectricity(ElectricityEntity electricity) {
+        this.electricity = electricity;
     }
 
     public InternetEntity getInternet() {

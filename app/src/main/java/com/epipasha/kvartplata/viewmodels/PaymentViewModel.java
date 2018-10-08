@@ -7,6 +7,7 @@ import com.epipasha.kvartplata.data.DataSource;
 import com.epipasha.kvartplata.data.Repository;
 import com.epipasha.kvartplata.data.entities.ColdWaterEntity;
 import com.epipasha.kvartplata.data.entities.DrainEntity;
+import com.epipasha.kvartplata.data.entities.ElectricityEntity;
 import com.epipasha.kvartplata.data.entities.HotWaterEntity;
 import com.epipasha.kvartplata.data.entities.InternetEntity;
 import com.epipasha.kvartplata.data.entities.PaymentEntity;
@@ -30,6 +31,7 @@ public class PaymentViewModel extends AndroidViewModel {
     private ColdWaterEntity coldWater;
     private HotWaterEntity hotWater;
     private DrainEntity drain;
+    private ElectricityEntity electricity;
     private InternetEntity internet;
 
     private Observable.OnPropertyChangedCallback mWaterDeltaCallback = new Observable.OnPropertyChangedCallback() {
@@ -62,6 +64,7 @@ public class PaymentViewModel extends AndroidViewModel {
             coldWater = payment.getColdWater();
             hotWater = payment.getHotWater();
             drain = payment.getDrain();
+            electricity = payment.getElectricity();
             internet = payment.getInternet();
 
             mDate.set(payment.getDate());
@@ -70,7 +73,11 @@ public class PaymentViewModel extends AndroidViewModel {
             coldWater = new ColdWaterEntity();
             hotWater = new HotWaterEntity();
             drain = new DrainEntity();
+            electricity = new ElectricityEntity();
             internet = new InternetEntity();
+
+            mDate.set(new Date());
+            mSum.set(0);
         }
 
         coldWater.addOnPropertyChangedCallback(mWaterDeltaCallback);
@@ -79,6 +86,7 @@ public class PaymentViewModel extends AndroidViewModel {
         coldWater.addOnPropertyChangedCallback(mSumCallback);
         hotWater.addOnPropertyChangedCallback(mSumCallback);
         drain.addOnPropertyChangedCallback(mSumCallback);
+        electricity.addOnPropertyChangedCallback(mSumCallback);
         internet.addOnPropertyChangedCallback(mSumCallback);
     }
 
@@ -86,9 +94,10 @@ public class PaymentViewModel extends AndroidViewModel {
         int coldWaterSum = coldWater == null ? 0 : coldWater.getSum();
         int hotWaterSum = hotWater == null ? 0 : hotWater.getSum();
         int drainSum = drain == null ? 0 : drain.getSum();
+        int electricitySum = electricity == null ? 0 : electricity.getSum();
         int internetSum = internet == null ? 0 : internet.getSum();
 
-        int sum = coldWaterSum + hotWaterSum + drainSum + internetSum;
+        int sum = coldWaterSum + hotWaterSum + drainSum + electricitySum + internetSum;
         mSum.set(sum);
     }
 
@@ -132,6 +141,10 @@ public class PaymentViewModel extends AndroidViewModel {
         return drain;
     }
 
+    public ElectricityEntity getElectricity() {
+        return electricity;
+    }
+
     public InternetEntity getInternet() {
         return internet;
     }
@@ -141,6 +154,7 @@ public class PaymentViewModel extends AndroidViewModel {
         payment.setColdWater(coldWater);
         payment.setHotWater(hotWater);
         payment.setDrain(drain);
+        payment.setElectricity(electricity);
         payment.setInternet(internet);
         mRepository.savePayment(payment);
     }

@@ -10,6 +10,7 @@ import com.epipasha.kvartplata.databinding.ActivityPaymentDetailBinding;
 import com.epipasha.kvartplata.databinding.FragmentColdWaterBinding;
 import com.epipasha.kvartplata.fragments.ColdWaterFragment;
 import com.epipasha.kvartplata.fragments.DrainFragment;
+import com.epipasha.kvartplata.fragments.ElectricityFragment;
 import com.epipasha.kvartplata.fragments.HotWaterFragment;
 import com.epipasha.kvartplata.fragments.InternetFragment;
 import com.epipasha.kvartplata.viewmodels.PaymentViewModel;
@@ -31,6 +32,7 @@ public class PaymentDetailActivity extends AppCompatActivity {
     private ColdWaterFragment mColdWaterFragment;
     private HotWaterFragment mHotWaterFragment;
     private DrainFragment mDrainFragment;
+    private ElectricityFragment mElectricityFragment;
     private InternetFragment mInternetFragment;
 
     @Override
@@ -55,6 +57,7 @@ public class PaymentDetailActivity extends AppCompatActivity {
         mColdWaterFragment = new ColdWaterFragment();
         mHotWaterFragment = new HotWaterFragment();
         mDrainFragment = new DrainFragment();
+        mElectricityFragment = new ElectricityFragment();
         mInternetFragment = new InternetFragment();
 
         FragmentManager fm = getSupportFragmentManager();
@@ -62,6 +65,7 @@ public class PaymentDetailActivity extends AppCompatActivity {
         tr.add(R.id.container, mColdWaterFragment);
         tr.add(R.id.container, mHotWaterFragment);
         tr.add(R.id.container, mDrainFragment);
+        tr.add(R.id.container, mElectricityFragment);
         tr.add(R.id.container, mInternetFragment);
         tr.commit();
     }
