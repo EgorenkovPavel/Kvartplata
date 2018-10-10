@@ -35,12 +35,6 @@ public class PaymentDetailActivity extends AppCompatActivity {
 
     private PaymentViewModel model;
 
-    private ColdWaterFragment mColdWaterFragment;
-    private HotWaterFragment mHotWaterFragment;
-    private DrainFragment mDrainFragment;
-    private ElectricityFragment mElectricityFragment;
-    private InternetFragment mInternetFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,20 +68,6 @@ public class PaymentDetailActivity extends AppCompatActivity {
             }
         });
 
-        mColdWaterFragment = new ColdWaterFragment();
-        mHotWaterFragment = new HotWaterFragment();
-        mDrainFragment = new DrainFragment();
-        mElectricityFragment = new ElectricityFragment();
-        mInternetFragment = new InternetFragment();
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction tr = fm.beginTransaction();
-        tr.add(R.id.container, mColdWaterFragment);
-        tr.add(R.id.container, mHotWaterFragment);
-        tr.add(R.id.container, mDrainFragment);
-        tr.add(R.id.container, mElectricityFragment);
-        tr.add(R.id.container, mInternetFragment);
-        tr.commit();
     }
 
     @Override

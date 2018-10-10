@@ -47,4 +47,5 @@
     <string name="present_value">Present value</string>
     <string name="drain">Drain</string>
     <string name="internet">Internet</string>
+    <string name="total_sum">Total sum</string>
 </resources>

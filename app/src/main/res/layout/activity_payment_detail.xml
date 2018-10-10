@@ -51,6 +51,46 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+            <fragment
+                android:id="@+id/fragment_cold_water"
+                android:name="com.epipasha.kvartplata.fragments.ColdWaterFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                tools:layout="@layout/fragment_cold_water" />
+
+            <fragment
+                android:id="@+id/fragment_hot_water"
+                android:name="com.epipasha.kvartplata.fragments.HotWaterFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                tools:layout="@layout/fragment_hot_water" />
+
+            <fragment
+                android:id="@+id/fragment_drain"
+                android:name="com.epipasha.kvartplata.fragments.DrainFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                tools:layout="@layout/fragment_drain" />
+
+            <fragment
+                android:id="@+id/fragment_electricity"
+                android:name="com.epipasha.kvartplata.fragments.ElectricityFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                tools:layout="@layout/fragment_electicity" />
+
+            <fragment
+                android:id="@+id/fragment_internet"
+                android:name="com.epipasha.kvartplata.fragments.InternetFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                tools:layout="@layout/fragment_internet" />
         </LinearLayout>
     </ScrollView>
 
@@ -67,8 +107,23 @@
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         tools:text="1000" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        android:elevation="8dp"
+        android:gravity="start"
+        android:padding="8dp"
+        android:text="@string/total_sum"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvTotalSum"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTotalSum" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
