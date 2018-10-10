@@ -3,14 +3,12 @@ package com.epipasha.kvartplata;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 
 import com.epipasha.kvartplata.databinding.ActivityPaymentDetailBinding;
-import com.epipasha.kvartplata.databinding.FragmentColdWaterBinding;
 import com.epipasha.kvartplata.fragments.ColdWaterFragment;
 import com.epipasha.kvartplata.fragments.DrainFragment;
 import com.epipasha.kvartplata.fragments.ElectricityFragment;
@@ -18,8 +16,8 @@ import com.epipasha.kvartplata.fragments.HotWaterFragment;
 import com.epipasha.kvartplata.fragments.InternetFragment;
 import com.epipasha.kvartplata.viewmodels.PaymentViewModel;
 import com.epipasha.kvartplata.viewmodels.ViewModelFactory;
+import com.google.android.material.snackbar.Snackbar;
 
-import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -28,6 +26,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 public class PaymentDetailActivity extends AppCompatActivity {
@@ -62,6 +61,18 @@ public class PaymentDetailActivity extends AppCompatActivity {
         }else{
             model.start();
         }
+
+        model.getAction().observe(this, new Observer<PaymentViewModel.Action>() {
+            @Override
+            public void onChanged(PaymentViewModel.Action action) {
+                switch (action){
+                    case SHOW_MES_PAYMENT_DATE_EXISTS:{
+                        Snackbar.make(findViewById(R.id.container), "Payment on this date is exists", Snackbar.LENGTH_LONG).show();
+                        break;
+                    }
+                }
+            }
+        });
 
         mColdWaterFragment = new ColdWaterFragment();
         mHotWaterFragment = new HotWaterFragment();

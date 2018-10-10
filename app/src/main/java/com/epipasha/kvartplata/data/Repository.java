@@ -2,6 +2,7 @@ package com.epipasha.kvartplata.data;
 
 import com.epipasha.kvartplata.data.entities.PaymentEntity;
 
+import java.util.Date;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -41,6 +42,10 @@ public class Repository {
 
     public void getLastPayment(DataSource.GetPaymentCallback getPaymentCallback){
         mLocalDataSource.getLastPayment(getPaymentCallback);
+    }
+
+    public void getPaymentByDate(Date date, DataSource.GetPaymentCallback callback){
+        mLocalDataSource.getPaymentByDate(date, callback);
     }
 
     public void savePayment(PaymentEntity payment) {

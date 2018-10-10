@@ -2,6 +2,8 @@ package com.epipasha.kvartplata.data;
 
 import com.epipasha.kvartplata.data.entities.PaymentEntity;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -75,5 +77,21 @@ public class LocalDataSource {
                 }
             }
         });
+    }
+
+    public void getPaymentByDate(final Date date, final DataSource.GetPaymentCallback callback) {
+        mAppExecutors.discIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                int month = cal.get(Calendar.MONTH);
+                int year = cal.get(Calendar.YEAR) - 1900;
+
+                PaymentEntity payment = mDb.paymentDao().getPaymentByDate(month, year);
+                callback.onSuccess(payment);
+            }
+        });
+
     }
 }

@@ -1,8 +1,6 @@
 package com.epipasha.kvartplata.viewmodels;
 
 import android.app.Application;
-import android.util.Log;
-import android.view.View;
 
 import com.epipasha.kvartplata.BR;
 import com.epipasha.kvartplata.data.DataSource;
@@ -36,6 +34,8 @@ public class PaymentViewModel extends AndroidViewModel {
     private DrainEntity drain;
     private ElectricityEntity electricity;
     private InternetEntity internet;
+
+    private SingleLiveEvent<Action> mAction = new SingleLiveEvent<>();
 
     private Observable.OnPropertyChangedCallback mWaterDeltaCallback = new Observable.OnPropertyChangedCallback() {
         @Override
@@ -201,6 +201,10 @@ public class PaymentViewModel extends AndroidViewModel {
         return internet;
     }
 
+    public SingleLiveEvent<Action> getAction() {
+        return mAction;
+    }
+
     public void save() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(mDate.get());
@@ -216,7 +220,27 @@ public class PaymentViewModel extends AndroidViewModel {
         mRepository.savePayment(payment);
     }
 
-    public void setDate(Date date) {
-        mDate.set(date);
+    public void setDate(final Date date) {
+
+        mRepository.getPaymentByDate(date, new DataSource.GetPaymentCallback() {
+            @Override
+            public void onSuccess(PaymentEntity entity) {
+                if(entity != null && entity.getId() != mPaymentId){
+                    mAction.postValue(Action.SHOW_MES_PAYMENT_DATE_EXISTS);
+                }else{
+                    mDate.set(date);
+                }
+            }
+
+            @Override
+            public void onFailed() {
+
+            }
+        });
     }
+
+    public enum Action {
+        SHOW_MES_PAYMENT_DATE_EXISTS
+    }
+
 }
