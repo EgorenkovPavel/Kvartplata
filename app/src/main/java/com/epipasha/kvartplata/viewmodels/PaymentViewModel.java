@@ -202,7 +202,12 @@ public class PaymentViewModel extends AndroidViewModel {
     }
 
     public void save() {
-        PaymentEntity payment = new PaymentEntity(mPaymentId, 1, 1, mSum.get());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(mDate.get());
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR) - 1900;
+
+        PaymentEntity payment = new PaymentEntity(mPaymentId, month, year, mSum.get());
         payment.setColdWater(coldWater);
         payment.setHotWater(hotWater);
         payment.setDrain(drain);
