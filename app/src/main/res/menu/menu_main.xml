@@ -4,11 +4,6 @@
     tools:context="com.epipasha.kvartplata.MainActivity">
 
     <item
-        android:id="@+id/action_initial_data"
-        android:orderInCategory="100"
-        android:title="@string/action_initial_data"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"

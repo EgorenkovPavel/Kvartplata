@@ -19,11 +19,11 @@
         android:defaultValue="@string/pref_enable_cold_water_default" />
 
     <CheckBoxPreference
-        android:title="@string/pref_enable_canalization_label"
-        android:key="@string/pref_enable_canalization_key"
-        android:summaryOff="@string/pref_enable_canalization_false"
-        android:summaryOn="@string/pref_enable_canalization_true"
-        android:defaultValue="@string/pref_enable_canalization_default" />
+        android:title="@string/pref_enable_drain_label"
+        android:key="@string/pref_enable_drain_key"
+        android:summaryOff="@string/pref_enable_drain_false"
+        android:summaryOn="@string/pref_enable_drain_true"
+        android:defaultValue="@string/pref_enable_drain_default" />
 
     <CheckBoxPreference
         android:title="@string/pref_enable_electricity_label"

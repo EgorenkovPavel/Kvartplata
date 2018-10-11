@@ -26,6 +26,13 @@
             android:parentActivityName=".MainActivity">
 
         </activity>
+
+        <activity
+            android:name=".PrefActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity">
+
+        </activity>
     </application>
 
 </manifest>

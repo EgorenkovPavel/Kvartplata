@@ -23,11 +23,11 @@
     <string name="pref_enable_cold_water_false">Not Enabled</string>
     <string name="pref_enable_cold_water_true">Enabled</string>
     <string name="pref_enable_cold_water_default">true</string>
-    <string name="pref_enable_canalization_label">Canalization</string>
-    <string name="pref_enable_canalization_key">canalization</string>
-    <string name="pref_enable_canalization_false">Not Enabled</string>
-    <string name="pref_enable_canalization_true">Enabled</string>
-    <string name="pref_enable_canalization_default">true</string>
+    <string name="pref_enable_drain_label">Drain</string>
+    <string name="pref_enable_drain_key">drain</string>
+    <string name="pref_enable_drain_false">Not Enabled</string>
+    <string name="pref_enable_drain_true">Enabled</string>
+    <string name="pref_enable_drain_default">true</string>
     <string name="pref_enable_electricity_label">Electricity</string>
     <string name="pref_enable_electricity_key">Electricity</string>
     <string name="pref_enable_electricity_false">Not Enabled</string>
