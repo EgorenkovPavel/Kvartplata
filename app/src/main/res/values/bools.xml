@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="pref_enable_cold_water_default">true</bool>
+    <bool name="pref_enable_hot_water_default">true</bool>
+    <bool name="pref_enable_drain_default">true</bool>
+    <bool name="pref_enable_electricity_default">true</bool>
+    <bool name="pref_enable_internet_default">true</bool>
+
+</resources>

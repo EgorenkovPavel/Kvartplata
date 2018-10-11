@@ -12,37 +12,39 @@
     <string name="tax">Tax</string>
     <string name="value">Value</string>
     <string name="sum">Sum</string>
+    <string name="title_activity_settings">Settings</string>
+
     <string name="pref_enable_hot_water_label">Hot water</string>
     <string name="pref_enable_hot_water_key">hot water</string>
     <string name="pref_enable_hot_water_false">Not Enabled</string>
     <string name="pref_enable_hot_water_true">Enabled</string>
-    <string name="pref_enable_hot_water_default">true</string>
-    <string name="title_activity_settings">Settings</string>
+
     <string name="pref_enable_cold_water_label">Cold water</string>
     <string name="pref_enable_cold_water_key">cold water</string>
     <string name="pref_enable_cold_water_false">Not Enabled</string>
     <string name="pref_enable_cold_water_true">Enabled</string>
-    <string name="pref_enable_cold_water_default">true</string>
+
     <string name="pref_enable_drain_label">Drain</string>
     <string name="pref_enable_drain_key">drain</string>
     <string name="pref_enable_drain_false">Not Enabled</string>
     <string name="pref_enable_drain_true">Enabled</string>
-    <string name="pref_enable_drain_default">true</string>
+
     <string name="pref_enable_electricity_label">Electricity</string>
     <string name="pref_enable_electricity_key">Electricity</string>
     <string name="pref_enable_electricity_false">Not Enabled</string>
     <string name="pref_enable_electricity_true">Enabled</string>
-    <string name="pref_enable_electricity_default">true</string>
+
+    <string name="pref_enable_internet_label">Internet</string>
+    <string name="pref_enable_internet_key">Internet</string>
+    <string name="pref_enable_internet_false">Not enabled</string>
+    <string name="pref_enable_internet_true">Enabled</string>
+
     <string name="pref_payment_types_title">Payment types</string>
     <string name="pref_payment_types_key">payment types</string>
     <string name="initial_data">Initial data</string>
     <string name="action_initial_data">Initial data</string>
     <string name="meters">Meters</string>
-    <string name="pref_enable_internet_label">Internet</string>
-    <string name="pref_enable_internet_key">Internet</string>
-    <string name="pref_enable_internet_false">Not enabled</string>
-    <string name="pref_enable_internet_true">Enabled</string>
-    <string name="pref_enable_internet_default">true</string>
+
     <string name="previous_value">Previous value</string>
     <string name="present_value">Present value</string>
     <string name="drain">Drain</string>

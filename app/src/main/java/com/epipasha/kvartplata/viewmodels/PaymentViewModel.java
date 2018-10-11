@@ -1,8 +1,12 @@
 package com.epipasha.kvartplata.viewmodels;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.preference.PreferenceManager;
 
 import com.epipasha.kvartplata.BR;
+import com.epipasha.kvartplata.R;
 import com.epipasha.kvartplata.data.DataSource;
 import com.epipasha.kvartplata.data.Repository;
 import com.epipasha.kvartplata.data.entities.ColdWaterEntity;
@@ -17,6 +21,7 @@ import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.AndroidViewModel;
@@ -34,6 +39,12 @@ public class PaymentViewModel extends AndroidViewModel {
     private DrainEntity drain;
     private ElectricityEntity electricity;
     private InternetEntity internet;
+
+    private ObservableBoolean showColdWater = new ObservableBoolean();
+    private ObservableBoolean showHotWater = new ObservableBoolean();
+    private ObservableBoolean showDrain = new ObservableBoolean();
+    private ObservableBoolean showElectricity = new ObservableBoolean();
+    private ObservableBoolean showInternet = new ObservableBoolean();
 
     private SingleLiveEvent<Action> mAction = new SingleLiveEvent<>();
 
@@ -59,6 +70,33 @@ public class PaymentViewModel extends AndroidViewModel {
         super(application);
 
         mRepository = repository;
+
+        getPrefs();
+
+    }
+
+    private void getPrefs() {
+
+        String keyColdWater = getApplication().getString(R.string.pref_enable_cold_water_key);
+        String keyHotWater = getApplication().getString(R.string.pref_enable_hot_water_key);
+        String keyDrain = getApplication().getString(R.string.pref_enable_drain_key);
+        String keyElectricity = getApplication().getString(R.string.pref_enable_electricity_key);
+        String keyInternet = getApplication().getString(R.string.pref_enable_internet_key);
+
+        Resources res = getApplication().getResources();
+        boolean defColdWater = res.getBoolean(R.bool.pref_enable_cold_water_default);
+        boolean defHotWater = res.getBoolean(R.bool.pref_enable_hot_water_default);
+        boolean defDrain = res.getBoolean(R.bool.pref_enable_drain_default);
+        boolean defElectricity = res.getBoolean(R.bool.pref_enable_electricity_default);
+        boolean defInternet = res.getBoolean(R.bool.pref_enable_internet_default);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        showColdWater.set(sharedPref.getBoolean(keyColdWater, defColdWater));
+        showHotWater.set(sharedPref.getBoolean(keyHotWater, defHotWater));
+        showDrain.set(sharedPref.getBoolean(keyDrain, defDrain));
+        showElectricity.set(sharedPref.getBoolean(keyElectricity, defElectricity));
+        showInternet.set(sharedPref.getBoolean(keyInternet, defInternet));
+
     }
 
     private void init(PaymentEntity payment){
@@ -203,6 +241,26 @@ public class PaymentViewModel extends AndroidViewModel {
 
     public SingleLiveEvent<Action> getAction() {
         return mAction;
+    }
+
+    public ObservableBoolean getShowColdWater() {
+        return showColdWater;
+    }
+
+    public ObservableBoolean getShowHotWater() {
+        return showHotWater;
+    }
+
+    public ObservableBoolean getShowDrain() {
+        return showDrain;
+    }
+
+    public ObservableBoolean getShowElectricity() {
+        return showElectricity;
+    }
+
+    public ObservableBoolean getShowInternet() {
+        return showInternet;
     }
 
     public void save() {

@@ -4,40 +4,40 @@
     <PreferenceCategory
         android:title="@string/pref_payment_types_title"
         android:key="@string/pref_payment_types_key">
-    <CheckBoxPreference
-        android:title="@string/pref_enable_hot_water_label"
-        android:key="@string/pref_enable_hot_water_key"
-        android:summaryOff="@string/pref_enable_hot_water_false"
-        android:summaryOn="@string/pref_enable_hot_water_true"
-        android:defaultValue="@string/pref_enable_hot_water_default" />
+        <CheckBoxPreference
+            android:defaultValue="@bool/pref_enable_cold_water_default"
+            android:key="@string/pref_enable_hot_water_key"
+            android:summaryOff="@string/pref_enable_hot_water_false"
+            android:summaryOn="@string/pref_enable_hot_water_true"
+            android:title="@string/pref_enable_hot_water_label" />
 
     <CheckBoxPreference
         android:title="@string/pref_enable_cold_water_label"
         android:key="@string/pref_enable_cold_water_key"
         android:summaryOff="@string/pref_enable_cold_water_false"
         android:summaryOn="@string/pref_enable_cold_water_true"
-        android:defaultValue="@string/pref_enable_cold_water_default" />
+        android:defaultValue="@bool/pref_enable_cold_water_default" />
 
     <CheckBoxPreference
         android:title="@string/pref_enable_drain_label"
         android:key="@string/pref_enable_drain_key"
         android:summaryOff="@string/pref_enable_drain_false"
         android:summaryOn="@string/pref_enable_drain_true"
-        android:defaultValue="@string/pref_enable_drain_default" />
+        android:defaultValue="@bool/pref_enable_drain_default" />
 
     <CheckBoxPreference
         android:title="@string/pref_enable_electricity_label"
         android:key="@string/pref_enable_electricity_key"
         android:summaryOff="@string/pref_enable_electricity_false"
         android:summaryOn="@string/pref_enable_electricity_true"
-        android:defaultValue="@string/pref_enable_electricity_default" />
+        android:defaultValue="@bool/pref_enable_electricity_default" />
 
     <CheckBoxPreference
         android:title="@string/pref_enable_internet_label"
         android:key="@string/pref_enable_internet_key"
         android:summaryOff="@string/pref_enable_internet_false"
         android:summaryOn="@string/pref_enable_internet_true"
-        android:defaultValue="@string/pref_enable_internet_default" />
+        android:defaultValue="@bool/pref_enable_internet_default" />
 
     </PreferenceCategory>
 
